@@ -1,7 +1,7 @@
 /*
 * Cover Menu
 * License - https://github.com/adaptlearning/adapt_framework/blob/master/LICENSE
-* Maintainers - Salamat Ali
+* Maintainers - Salamat Ali, Dan Gray (dan@delta-net.co.uk)
 */
 
 
@@ -126,7 +126,6 @@ define(function(require) {
         },
 
         configureAccessibilityTabbing: function(index) {
-            console.log(index)
             if ($('html').hasClass('accessibility')) {
                 this.$(".menu-item-control").addClass("menu-item-control-hide").attr('tabindex', -1);
                 $('.menu-item-indicator').attr('tabindex', -1);
@@ -297,10 +296,33 @@ define(function(require) {
     }, {
         template:'cover-item-indicator'
     });
-    
+
+
+    Adapt.on('adapt:initialize', function() {
+        Adapt.router.set('_canNavigate', true, {pluginName: '_pageLevelProgress'});
+
+        var newRouteId = Adapt.course.get("_locationIds")._intro
+        Backbone.history.navigate('#/id/' + newRouteId, {replace: true, trigger: true});
+        // Backbone.history.navigate('#/id/' + newRouteId, true);
+    }); 
+
+
     Adapt.on('router:menu', function(model) {
         $('#wrapper').append(new CoverView({model:model}).$el);
         new CoverExtensions({model:model});
     });
-    
+
+    Adapt.on('menuView:postRender', function(view) {
+        if (Adapt.location._currentId == Adapt.course.get("_locationIds")._menu) {
+            $('.navigation-back-button').addClass('display-none');
+        }
+    });
+
+
+    Adapt.on('pageView:postRender', function(view) {
+        if (Adapt.location._currentId == Adapt.course.get("_locationIds")._intro) {
+            $('.navigation-back-button').addClass('display-none');
+        }
+    });
+
 });

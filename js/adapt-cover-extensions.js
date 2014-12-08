@@ -28,7 +28,7 @@ define(function(require) {
     	/*handles when item is in view*/
     	currentItemInView: function(model) {
     		//console.log("CoverExtensionsView::currentItemInView:", model);
-    		var $currentItemInView = $(".menu-item-" + model.get("_id"));
+    		var $currentItemInView = $(".menu-item-" + this.model.get("_id"));
             $(".menu-item").removeClass("inview");
             $currentItemInView.addClass("inview");
 
