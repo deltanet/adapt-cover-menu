@@ -122,7 +122,7 @@ define(function(require) {
 
         navigateToIntro: function(event) {
             if(event) event.preventDefault();
-            Adapt.navigateToElement(Adapt.course.get("_locationIds")._intro, "contentObjects");
+            Adapt.navigateToElement(Adapt.course.get("_introCoverIds")._intro, "contentObjects");
         },
 
         configureAccessibilityTabbing: function(index) {
@@ -301,7 +301,7 @@ define(function(require) {
     Adapt.on('adapt:initialize', function() {
         Adapt.router.set('_canNavigate', true, {pluginName: '_pageLevelProgress'});
 
-        var newRouteId = Adapt.course.get("_locationIds")._intro
+        var newRouteId = Adapt.course.get("_introCoverIds")._intro
         Backbone.history.navigate('#/id/' + newRouteId, {replace: true, trigger: true});
         // Backbone.history.navigate('#/id/' + newRouteId, true);
     }); 
@@ -313,14 +313,14 @@ define(function(require) {
     });
 
     Adapt.on('menuView:postRender', function(view) {
-        if (Adapt.location._currentId == Adapt.course.get("_locationIds")._menu) {
+        if (Adapt.location._currentId == Adapt.course.get("_introCoverIds")._menu) {
             $('.navigation-back-button').addClass('display-none');
         }
     });
 
 
     Adapt.on('pageView:postRender', function(view) {
-        if (Adapt.location._currentId == Adapt.course.get("_locationIds")._intro) {
+        if (Adapt.location._currentId == Adapt.course.get("_introCoverIds")._intro) {
             $('.navigation-back-button').addClass('display-none');
         }
     });

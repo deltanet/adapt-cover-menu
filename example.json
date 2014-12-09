@@ -12,3 +12,9 @@
         "_accessibilityEnabled": "course/en/images/origami-menu-one.jpg"
     }
 }
+
+// in course.json specify the contentobject id and the menu and introduction page.
+"_introCoverIds": {
+    "_intro": "co-01",
+    "_menu": "co-02"
+}
