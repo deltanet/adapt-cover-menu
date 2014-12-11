@@ -1,12 +1,13 @@
 {
-  "name": "adapt-cover",
+  "name": "adapt-introcover",
   "version": "0.0.0",
-  "homepage": "https://github.com/cgkineo/adapt-cover-menu",
+  "homepage": "http://github.com/deltanet/adapt-introcover-menu",
   "authors": [
-    "Salamat Ali"
+    "Salamat Ali",
+    "Dan Gray"
   ],
   "description": "",
-  "main": "js/adapt-cover.js",
+  "main": "js/adapt-introcover.js",
   "keywords": [
     "adapt-plugin",
     "adapt-menu"

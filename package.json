@@ -1,5 +1,5 @@
 {
-  "name": "adapt-cover",
+  "name": "adapt-introcover",
   "version": "0.0.1",
   "description": "",
   "main": "",
@@ -10,7 +10,7 @@
     "type": "git",
     "url": ""
   },
-  "author": "Salamat Ali",
+  "authors": "Salamat Ali, Dan Gray",
   "license": "GPL v3",
   "bugs": {
     "url": ""

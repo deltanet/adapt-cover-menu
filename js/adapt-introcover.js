@@ -1,6 +1,6 @@
 /*
-* Cover Menu
-* License - https://github.com/adaptlearning/adapt_framework/blob/master/LICENSE
+* Intro Cover Menu
+* License - https://github.com/deltanet/adapt-introcover-menu/blob/master/LICENSE
 * Maintainers - Salamat Ali, Dan Gray (dan@delta-net.co.uk)
 */
 
@@ -10,7 +10,7 @@ define(function(require) {
     var Backbone = require('backbone');
     var Adapt = require('coreJS/adapt');
     var MenuView = require('coreViews/menuView');
-    var CoverExtensions = require("menu/adapt-cover-menu/js/adapt-cover-extensions");
+    var CoverExtensions = require("menu/adapt-introcover-menu/js/adapt-introcover-extensions");
     
     var CoverView = MenuView.extend({
 
@@ -299,11 +299,16 @@ define(function(require) {
 
 
     Adapt.on('adapt:initialize', function() {
-        Adapt.router.set('_canNavigate', true, {pluginName: '_pageLevelProgress'});
 
-        var newRouteId = Adapt.course.get("_introCoverIds")._intro
-        Backbone.history.navigate('#/id/' + newRouteId, {replace: true, trigger: true});
-        // Backbone.history.navigate('#/id/' + newRouteId, true);
+        if (Adapt.location._currentLocation === 'course') {
+            Adapt.router.set('_canNavigate', true, {pluginName: '_pageLevelProgress'});
+            var newRouteId = Adapt.course.get("_introCoverIds")._intro
+            Backbone.history.navigate('#/id/' + newRouteId, {replace: true, trigger: true});
+            // Backbone.history.navigate('#/id/' + newRouteId, true);
+        } else {
+            return;
+        }
+
     }); 
 
 
