@@ -299,7 +299,7 @@ define(function(require) {
 
 
     Adapt.on('adapt:initialize', function() {
-
+        //this should really be in the router
         if (Adapt.location._currentLocation === 'course') {
             Adapt.router.set('_canNavigate', true, {pluginName: '_pageLevelProgress'});
             var newRouteId = Adapt.course.get("_introCoverIds")._intro
