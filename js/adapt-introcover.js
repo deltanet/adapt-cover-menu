@@ -84,10 +84,15 @@ define(function(require) {
             var width = $("#wrapper").width();
             var height = $(window).height() - $(".navigation").height();
             this.model.set({width:width});
-            this.$(".menu-intro-screen").css({
-                width:width,
-                height:height
-            });
+            if (Adapt.course.get("_introCover")._introScreen) {
+                this.$(".menu-intro-screen").css({
+                    width:width,
+                    height:height
+                });  
+            } else {
+                this.$(".menu-intro-screen").addClass('display-none');
+            }
+
             this.$('.menu-item-container-inner').css({
                 width:width * this.model.getChildren().length + "px",
                 height: (height -$(".menu-item-indicator-container").height()) +"px"
@@ -96,7 +101,7 @@ define(function(require) {
                 height:height,
                 overflow:"hidden"
             });
-            if(this.model.get("_revealedItems")) {
+            if(this.model.get("_revealedItems") && Adapt.course.get("_introCover")._introScreen) {
                 this.revealItems();
             }
             this.setupNavigation();
@@ -122,7 +127,7 @@ define(function(require) {
 
         navigateToIntro: function(event) {
             if(event) event.preventDefault();
-            Adapt.navigateToElement(Adapt.course.get("_introCoverIds")._intro, "contentObjects");
+            Adapt.navigateToElement(Adapt.course.get("_introCover")._introCoverIds._intro, "contentObjects");
         },
 
         configureAccessibilityTabbing: function(index) {
@@ -302,7 +307,7 @@ define(function(require) {
         //this should really be in the router
         if (Adapt.location._currentLocation === 'course') {
             Adapt.router.set('_canNavigate', true, {pluginName: '_pageLevelProgress'});
-            var newRouteId = Adapt.course.get("_introCoverIds")._intro
+            var newRouteId = Adapt.course.get("_introCover")._introCoverIds._intro
             Backbone.history.navigate('#/id/' + newRouteId, {replace: true, trigger: true});
             // Backbone.history.navigate('#/id/' + newRouteId, true);
         } else {
@@ -318,14 +323,14 @@ define(function(require) {
     });
 
     Adapt.on('menuView:postRender', function(view) {
-        if (Adapt.location._currentId == Adapt.course.get("_introCoverIds")._menu) {
+        if (Adapt.location._currentId == Adapt.course.get("_introCover")._introCoverIds._menu) {
             $('.navigation-back-button').addClass('display-none');
         }
     });
 
 
     Adapt.on('pageView:postRender', function(view) {
-        if (Adapt.location._currentId == Adapt.course.get("_introCoverIds")._intro) {
+        if (Adapt.location._currentId == Adapt.course.get("_introCover")._introCoverIds._intro) {
             $('.navigation-back-button').addClass('display-none');
         }
     });
