@@ -13,8 +13,21 @@
     }
 }
 
+// In contentObjects.json these values should be added to the cover menu object.
+"_coverMenu":{
+    "_introItemGraphic": {
+        "alt": "",
+        "src": "course/en/images/retrnImage.png",
+        "title": "Intro Page"
+    }
+}
+
+
 // in course.json specify the contentobject id and the menu and introduction page.
-"_introCoverIds": {
-    "_intro": "co-01",
-    "_menu": "co-02"
+"_introCover": {
+    "_introScreen": true,
+    "_introCoverIds": {
+        "_intro": "co-05",
+        "_menu": "co-10"
+    }
 }
