@@ -13,12 +13,16 @@ appears on the menu.
 Specify the introduction page and menu page in course.json.
 
 ```
-"_introCoverIds": {
-    "_intro": "co-01",
-    "_menu": "co-02"
+"_coverMenu":{
+    "_introItemGraphic": {
+        "alt": "",
+        "src": "course/en/images/retrnImage.png",
+        "title": "Intro Page"
+    }
 }
 ```
 
+In contentObjects.json, on each object to appear on the menu. This replaces the "_graphic" data object
 
 ```
 "_coverMenu":{
@@ -32,6 +36,18 @@ Specify the introduction page and menu page in course.json.
         "_isLocked":"course/en/images/origami-menu-one.jpg",
         "_default":"course/en/images/origami-menu-one.jpg",
         "_accessibilityEnabled": "course/en/images/origami-menu-one.jpg"
+    }
+}
+```
+
+In contentObjects.json these values should be added to the cover menu object.
+
+```
+"_coverMenu":{
+    "_introItemGraphic": {
+        "alt": "",
+        "src": "course/en/images/retrnImage.png",
+        "title": "Intro Page"
     }
 }
 ```
