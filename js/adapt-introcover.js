@@ -234,9 +234,11 @@ define(function(require) {
         },
 
         setBackgroundImage: function() {            
-            $(".menu-item-" + this.model.get("_id")).css({
-                backgroundImage:"url(" + this.model.get("_coverMenu")._backgroundGraphic.src + ")"
-            });
+            if (this.model.get("_id") !== Adapt.course.get("_introCover")._introCoverIds._intro && this.model.get("_id") !== Adapt.course.get("_introCover")._introCoverIds._menu) {
+                $(".menu-item-" + this.model.get("_id")).css({
+                    backgroundImage:"url(" + this.model.get("_coverMenu")._backgroundGraphic.src + ")"
+                });
+            }
         }
 
     }, {
