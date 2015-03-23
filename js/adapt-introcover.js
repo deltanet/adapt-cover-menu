@@ -327,6 +327,7 @@ define(function(require) {
     Adapt.on('menuView:postRender', function(view) {
         if (Adapt.location._currentId == Adapt.course.get("_introCover")._introCoverIds._menu) {
             $('.navigation-back-button').addClass('display-none');
+            $('.navigation-drawer-toggle-button').addClass('display-none');
         }
     });
 
@@ -334,6 +335,8 @@ define(function(require) {
     Adapt.on('pageView:postRender', function(view) {
         if (Adapt.location._currentId == Adapt.course.get("_introCover")._introCoverIds._intro) {
             $('.navigation-back-button').addClass('display-none');
+        } else {
+            $('.navigation-drawer-toggle-button').removeClass('display-none');
         }
     });
 
