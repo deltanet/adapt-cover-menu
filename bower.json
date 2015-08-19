@@ -1,6 +1,7 @@
 {
   "name": "adapt-introcover-menu",
   "version": "1.0.0",
+  "framework": "1.1.5",
   "homepage": "http://github.com/deltanet/adapt-introcover-menu",
   "authors": [
     "Salamat Ali",
