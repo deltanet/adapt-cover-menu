@@ -1,24 +1,16 @@
 {
   "name": "adapt-introcover-menu",
   "version": "1.0.0",
-  "framework": "1.1.5",
+  "framework": "^2.0.0",
   "homepage": "http://github.com/deltanet/adapt-introcover-menu",
-  "authors": [
-    "Salamat Ali",
-    "Dan Gray"
-  ],
+  "displayName": "Intro cover menu",
+  "menu": "introcover",
   "description": "",
   "main": "js/adapt-introcover.js",
   "keywords": [
     "adapt-plugin",
     "adapt-menu"
   ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+  "license": "GPLv3",
+  "targetAttribute": "_coverMenu"
 }
