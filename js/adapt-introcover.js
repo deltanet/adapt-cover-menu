@@ -60,6 +60,7 @@ define(function(require) {
             this.model.getChildren().each(_.bind(function(item) {
                 if(item.get('_isAvailable')) {
                     nthChild ++;
+                    item.set("_nthChild", nthChild);
                     this.renderMenuItems(item, nthChild);
                 }
             }, this));
