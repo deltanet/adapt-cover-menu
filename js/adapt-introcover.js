@@ -279,7 +279,7 @@ define(function(require) {
         postRender: function() {
             var numItems = this.model.getChildren().models.length;
             var width = 100 / numItems;
-            $(".menu-item-indicator").css({
+            this.$(".menu-item-indicator").css({
                 width: width + "%"
             });
             this.$('.menu-item-indicator-graphic').imageready(_.bind(function() {
