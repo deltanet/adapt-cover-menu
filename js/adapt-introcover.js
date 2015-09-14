@@ -60,6 +60,7 @@ define(function(require) {
             this.model.getChildren().each(_.bind(function(item) {
                 if(item.get('_isAvailable')) {
                     nthChild ++;
+                    item.set("_nthChild", nthChild);
                     this.renderMenuItems(item, nthChild);
                 }
             }, this));
@@ -210,8 +211,8 @@ define(function(require) {
             return [
                 'menu-item',
                 'menu-item-' + this.model.get('_id') ,
-                'nth-child-' + this.options.nthChild,
-                this.options.nthChild % 2 === 0  ? 'nth-child-even' : 'nth-child-odd'
+                'nth-child-' + this.model.get("_nthChild"),
+                this.model.get("_nthChild") % 2 === 0  ? 'nth-child-even' : 'nth-child-odd'
             ].join(' ');
         },
 
@@ -251,8 +252,8 @@ define(function(require) {
             return [
                 'menu-item-indicator',
                 'menu-item-indicator-' + this.model.get('_id') ,
-                'nth-child-' + this.options.nthChild,
-                this.options.nthChild % 2 === 0  ? 'nth-child-even' : 'nth-child-odd'
+                'nth-child-' + this.model.get("_nthChild"),
+                this.model.get("_nthChild") % 2 === 0  ? 'nth-child-even' : 'nth-child-odd'
             ].join(' ');
         },
 
@@ -276,9 +277,9 @@ define(function(require) {
         },
 
         postRender: function() {
-            var numItems = this.options.siblingsLength
+            var numItems = this.model.getChildren().models.length;
             var width = 100 / numItems;
-            $(".menu-item-indicator").css({
+            this.$(".menu-item-indicator").css({
                 width: width + "%"
             });
             this.$('.menu-item-indicator-graphic').imageready(_.bind(function() {
