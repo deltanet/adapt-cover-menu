@@ -5,6 +5,16 @@ The intro cover menu is a carousel style menu with an introduction page. It also
 
 Since the cover menu requires graphical assets to be present to function correctly, an asset pack is included with this menu to get you started quickly.
 
+----------------------------
+**Version number:**  1.0.1     
+**Framework versions supported:**  2.0.0     
+**Author / maintainer:** DeltaNet with [contributors](https://github.com/deltanet/adapt-introcover-menu/graphs/contributors)     
+**Accessibility support:** no  
+**RTL support:** no     
+**Authoring tool support:** no
+
+----------------------------
+
 ###Example JSON
 
 Configuration options are explained below. The "_coverMenu" object replaces the "_graphic" object for each object in contentObjects.json that
