@@ -1,6 +1,6 @@
 {
   "name": "adapt-introcover-menu",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "framework": "^2.0.0",
   "homepage": "http://github.com/deltanet/adapt-introcover-menu",
   "displayName": "Intro cover menu",
@@ -11,6 +11,6 @@
     "adapt-plugin",
     "adapt-menu"
   ],
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "targetAttribute": "_coverMenu"
 }
