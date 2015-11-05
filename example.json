@@ -16,3 +16,8 @@
         "menuViewButton": "Select here to view page one."
     } 
 }
+
+// set the intro screen on/off in all menus in the course.json
+"_coverMenu":{
+    "_introScreen": true
+}

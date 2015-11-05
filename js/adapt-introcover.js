@@ -3,7 +3,7 @@ define(function(require) {
     var Backbone = require('backbone');
     var Adapt = require('coreJS/adapt');
     var MenuView = require('coreViews/menuView');
-    var CoverExtensions = require("menu/adapt-cover-menu/js/adapt-cover-extensions");
+    var CoverExtensions = require("menu/adapt-introcover-menu/js/adapt-cover-extensions");
     
     var CoverView = MenuView.extend({
 
@@ -86,10 +86,18 @@ define(function(require) {
             var width = $("#wrapper").width();
             var height = $(window).height() - $(".navigation").height();
             this.model.set({width:width});
-            this.$(".menu-intro-screen").css({
-                width:width,
-                height:height
-            });
+           if (Adapt.course.get("_coverMenu") && Adapt.course.get("_coverMenu")._introScreen) {
+                this.$(".menu-intro-screen").css({
+                    width:width,
+                    height:height
+                });
+            } else {
+                this.$(".menu-intro-screen").addClass('display-none');
+            }
+
+
+
+
             this.$('.menu-item-container-inner').css({
                 width:width * this.model.getChildren().length + "px",
                 height: (height -$(".menu-item-indicator-container").height()) +"px"
