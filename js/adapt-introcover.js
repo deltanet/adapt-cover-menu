@@ -308,5 +308,10 @@ define(function(require) {
         $('#wrapper').append(new CoverView({model:model}).$el);
         new CoverExtensions({model:model});
     });
+
+    Adapt.on('menuView:postRender', function(view) {
+            $('.navigation-back-button').addClass('display-none');
+            //$('.navigation-drawer-toggle-button').addClass('display-none');
+    });
     
 });
