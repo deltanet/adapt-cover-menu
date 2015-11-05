@@ -10,8 +10,15 @@ define(function(require) {
 
     	initialize: function() {
     		this.collection = this.model.getChildren();
+    		this.listenTo(Adapt, 'remove', this.remove);
     		this.listenTo(Adapt, "cover:revealed", this.itemsRevealed);
     		this.listenTo(Adapt, "cover:navigate", this.handleNavigation);
+    	},
+
+    	remove: function() {
+    	    this.$el.remove();
+    	    this.stopListening();
+    	    return this;
     	},
 
     	/*handles event when menu intro start button is clicked and the menu items are revealed*/
@@ -21,7 +28,6 @@ define(function(require) {
 
     	/*handles navigation left/right event and navigate to current index*/
     	handleNavigation: function(index) {
-    		//console.log("CoverExtensionsView::handleNavigation");
     		this.currentItemInView(this.collection.models[index]);
     	},
 

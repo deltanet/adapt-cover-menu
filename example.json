@@ -10,24 +10,9 @@
         "_isLocked":"course/en/images/origami-menu-one.jpg",
         "_default":"course/en/images/origami-menu-one.jpg",
         "_accessibilityEnabled": "course/en/images/origami-menu-one.jpg"
-    }
-}
-
-// In contentObjects.json these values should be added to the cover menu object.
-"_coverMenu":{
-    "_introItemGraphic": {
-        "alt": "",
-        "src": "course/en/images/retrnImage.png",
-        "title": "Intro Page"
-    }
-}
-
-
-// in course.json specify the contentobject id and the menu and introduction page.
-"_introCover": {
-    "_introScreen": true,
-    "_introCoverIds": {
-        "_intro": "co-05",
-        "_menu": "co-10"
-    }
+    },
+    "_ariaLabels": {
+        "menuItemPage": "Page one, tab to View button to enter.",
+        "menuViewButton": "Select here to view page one."
+    } 
 }
