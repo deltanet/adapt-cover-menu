@@ -1,12 +1,12 @@
 {
-  "name": "adapt-introcover-menu",
+  "name": "adapt-cover-menu",
   "version": "1.0.2",
   "framework": "^2.0.0",
-  "homepage": "http://github.com/deltanet/adapt-introcover-menu",
-  "displayName": "Intro cover menu",
+  "homepage": "http://github.com/deltanet/adapt-cover-menu",
+  "displayName": "Cover menu",
   "menu": "introcover",
   "description": "",
-  "main": "js/adapt-introcover.js",
+  "main": "js/adapt-cover.js",
   "keywords": [
     "adapt-plugin",
     "adapt-menu"
