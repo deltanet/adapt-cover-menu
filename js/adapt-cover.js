@@ -3,7 +3,7 @@ define(function(require) {
     var Backbone = require('backbone');
     var Adapt = require('coreJS/adapt');
     var MenuView = require('coreViews/menuView');
-    var CoverExtensions = require("menu/adapt-introcover-menu/js/adapt-cover-extensions");
+    var CoverExtensions = require("menu/adapt-cover-menu/js/adapt-cover-extensions");
     
     var CoverView = MenuView.extend({
 
@@ -132,7 +132,7 @@ define(function(require) {
 
         navigateToIntro: function(event) {
             if(event) event.preventDefault();
-            Adapt.navigateToElement(Adapt.course.get("_locationIds")._intro, "contentObjects");
+            Adapt.navigateToElement(Adapt.course.get("_start")._id, "contentObjects");
         },
 
         configureAccessibilityTabbing: function(index) {
@@ -286,9 +286,11 @@ define(function(require) {
         postRender: function() {
             var numItems = this.model.get('_siblingsLength');
             var width = 100 / numItems;
+            /*
             $(".menu-item-indicator").css({
                 width: width + "%"
             });
+*/
             this.$('.menu-item-indicator-graphic').imageready(_.bind(function() {
                 Adapt.trigger("indicator:postRender");
                 this.setReadyStatus();
@@ -297,11 +299,11 @@ define(function(require) {
 
         onItemClicked: function(event) {
             if (event) event.preventDefault();
-            Adapt.trigger("indicator:clicked", this.$el.index());
+            Adapt.trigger("indicator:clicked", this.$el.index() - 1);
         },
 
         handleNavigation: function(index) {
-            if (this.$el.index() == index) {
+            if (this.$el.index() == index + 1) {
                 this.$el.addClass("selected");
             } else {
                 this.$el.removeClass("selected");

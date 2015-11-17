@@ -1,12 +1,12 @@
 <div class="menu-item-inner" role="menuitem">
 	<div class="menu-item-title" role="heading">
-		<h2 class="menu-item-title-inner">{{{title}}}</h2>
+		<h2 class="menu-item-title-inner">{{{a11y_text title}}}</h2>
 	</div>
 	<div class="menu-item-body">
-		<div class="menu-item-body-inner">{{{body}}}</div>
+		<div class="menu-item-body-inner">{{{a11y_text body}}}</div>
 	</div>
 	<div class="menu-item-duration">
-		<div class="menu-item-duration-inner">Duration: {{{duration}}}</div>
+		<div class="menu-item-duration-inner">{{{a11y_text duration}}}</div>
 	</div>
 	{{#unless _isLocked}}
 	<a class="menu-item-route button" href="#/id/{{_id}}" class="{{#if _isVisited}}visited{{/if}}" aria-label="{{_coverMenu_ariaLabels.menuViewButton}}">
