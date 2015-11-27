@@ -211,6 +211,10 @@ define(function(require) {
 
     var CoverItemView = MenuView.extend({
 
+        events:{
+            'click .menu-item-audio-toggle': 'toggleAudio'
+        },
+
         className: function() {
             return [
                 'menu-item',
@@ -225,8 +229,31 @@ define(function(require) {
         },
 
         postRender: function() {
+            this.audioChannel = this.model.get('_audio')._channel;
+            this.elementId = this.model.get("_id");
+
+            console.log("this.elementId = "+this.elementId);
+
+            // Hide controls
+            if(this.model.get('_audio')._showControls==false){
+                this.$('.audio-toggle').addClass('hidden');
+            }
+            try {
+                this.audioFile = this.model.get("_audio")._media.mp3;
+            } catch(e) {
+                console.log('An error has occured loading audio');
+            }
+
+            // Set clip ID
+            Adapt.audio.audioClip[this.audioChannel].newID = this.elementId;
+            // Set listener for when clip ends
+            $(Adapt.audio.audioClip[this.audioChannel]).on('ended', _.bind(this.onAudioEnded, this));
+
             this.setupItemLayout();
             this.setBackgroundImage();
+
+            // Add inview listener on audio element
+            this.$('.menu-item-audio-inner').on('inview', _.bind(this.inview, this));
         },
 
         setupItemLayout: function() {
@@ -242,6 +269,72 @@ define(function(require) {
             $(".menu-item-" + this.model.get("_id")).css({
                 backgroundImage:"url(" + this.model.get("_coverMenu")._backgroundGraphic.src + ")"
             });
+        },
+
+        onAudioEnded: function() {
+            Adapt.trigger('audio:audioEnded', this.audioChannel);
+        },
+
+        toggleAudio: function(event) {
+            if (event) event.preventDefault();
+ 
+            if ($(event.currentTarget).hasClass('playing')) {
+                Adapt.trigger('audio:pauseAudio', this.audioChannel);
+            } else {
+                Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
+            }
+        },
+
+        /*
+        inview: function(event, visible, visiblePartX, visiblePartY) {
+            if (visible) {
+                if (visiblePartY === 'top') {
+                    this._isVisibleTop = true;
+                } else if (visiblePartY === 'bottom') {
+                    this._isVisibleBottom = true;
+                } else {
+                    this._isVisibleTop = true;
+                    this._isVisibleBottom = true;
+                }
+                // Check if visible on screen
+                if (this._isVisibleTop && this._isVisibleBottom) {
+                    // Check if audio is set to on
+                    if(Adapt.audio.audioClip[this.audioChannel].status==1){
+                        // Check if audio is set to autoplay
+                        if(this.model.get("_audio")._autoplay){
+                            Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
+                        }
+                    }
+                }
+            } else {
+                Adapt.trigger('audio:inviewOff', this.elementId, this.audioChannel);   
+            }
+        }
+        */
+
+        inview: function(event, visible, visiblePartX, visiblePartY) {
+            if (visible) {
+                if (visiblePartX === 'left') {
+                    this._isVisibleLeft = true;
+                } else if (visiblePartX === 'right') {
+                    this._isVisibleRight = true;
+                } else {
+                    this._isVisibleLeft = true;
+                    this._isVisibleRight = true;
+                }
+                // Check if visible on screen
+                if (this._isVisibleLeft && this._isVisibleRight) {
+                    // Check if audio is set to on
+                    if(Adapt.audio.audioClip[this.audioChannel].status==1){
+                        // Check if audio is set to autoplay
+                        if(this.model.get("_audio")._autoplay){
+                            Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
+                        }
+                    }
+                }
+            } else {
+                Adapt.trigger('audio:inviewOff', this.elementId, this.audioChannel);   
+            }
         }
 
     }, {

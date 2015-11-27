@@ -21,3 +21,15 @@
 "_coverMenu":{
     "_introScreen": true
 }
+
+// Audio functionality - add to each 'page' element in contentObjects.json
+"_audio": {
+    "_isEnabled": true,
+    "_showControls": true,
+    "_autoplay": true,
+    "_channel": 0,
+    "_media": {
+        "mp3": "course/en/audio/MAC_M1_04_1.mp3",
+        "ogg": "course/en/audio/MAC_M1_04_1.ogg"
+    }
+}

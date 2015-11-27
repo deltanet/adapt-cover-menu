@@ -108,6 +108,25 @@
 		}
 	}
 
+	.menu-item-audio-inner {
+		display:inline;
+    	float: right;
+	}
+
+	.menu-item-audio-toggle {
+        color: @white;
+        background-color: @item-color;
+        padding: @item-padding;
+        .transition-all-colors;
+        &:hover{
+            background-color: @item-color-hover;
+        }
+	}
+
+	.hidden {
+        display: none;
+    }
+
 	.menu-item-title {
 		margin-top: 20px;
 	}
