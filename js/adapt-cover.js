@@ -68,6 +68,9 @@ define(function(require) {
                 if(item.get('_isAvailable')) {
                     nthChild ++;
                     this.renderMenuItems(item, nthChild);
+                    if(Adapt.config.get('_audio') && Adapt.config.get('_audio')._isEnabled) {
+                        this.renderAudioItems(item);
+                    }
                 }
             }, this));
             this.setupLayout();
@@ -82,6 +85,10 @@ define(function(require) {
             this.$('.menu-item-indicator-container-inner').append(new CoverItemIndicatorView({model:item}).$el);
         },
 
+        renderAudioItems: function(item) {
+            this.$('.menu-item-'+item.get("_id") + ' > .menu-item-inner').prepend(new CoverItemAudioView({model:item}).$el);
+        },
+
         setupLayout: function() {
             var width = $("#wrapper").width();
             var height = $(window).height() - $(".navigation").height();
@@ -94,9 +101,6 @@ define(function(require) {
             } else {
                 this.$(".menu-intro-screen").addClass('display-none');
             }
-
-
-
 
             this.$('.menu-item-container-inner').css({
                 width:width * this.model.getChildren().length + "px",
@@ -211,9 +215,7 @@ define(function(require) {
 
     var CoverItemView = MenuView.extend({
 
-        events:{
-            'click .menu-item-audio-toggle': 'toggleAudio'
-        },
+        events:{},
 
         className: function() {
             return [
@@ -229,31 +231,8 @@ define(function(require) {
         },
 
         postRender: function() {
-            this.audioChannel = this.model.get('_audio')._channel;
-            this.elementId = this.model.get("_id");
-
-            console.log("this.elementId = "+this.elementId);
-
-            // Hide controls
-            if(this.model.get('_audio')._showControls==false){
-                this.$('.audio-toggle').addClass('hidden');
-            }
-            try {
-                this.audioFile = this.model.get("_audio")._media.mp3;
-            } catch(e) {
-                console.log('An error has occured loading audio');
-            }
-
-            // Set clip ID
-            Adapt.audio.audioClip[this.audioChannel].newID = this.elementId;
-            // Set listener for when clip ends
-            $(Adapt.audio.audioClip[this.audioChannel]).on('ended', _.bind(this.onAudioEnded, this));
-
             this.setupItemLayout();
             this.setBackgroundImage();
-
-            // Add inview listener on audio element
-            this.$('.menu-item-audio-inner').on('inview', _.bind(this.inview, this));
         },
 
         setupItemLayout: function() {
@@ -269,6 +248,40 @@ define(function(require) {
             $(".menu-item-" + this.model.get("_id")).css({
                 backgroundImage:"url(" + this.model.get("_coverMenu")._backgroundGraphic.src + ")"
             });
+        }
+
+    }, {
+        template:'cover-item'
+    });
+
+    var CoverItemAudioView = MenuView.extend({
+
+        events:{
+            'click .menu-item-audio-toggle': 'toggleAudio'
+        },
+
+        className: "audio-controls",
+
+        preRender: function() {},
+
+        postRender: function() {
+            this.audioChannel = this.model.get('_audio')._channel;
+            this.elementId = this.model.get("_id");
+            // Hide controls
+            if(this.model.get('_audio')._showControls==false){
+                this.$('.audio-toggle').addClass('hidden');
+            }
+            try {
+                this.audioFile = this.model.get("_audio")._media.mp3;
+            } catch(e) {
+                console.log('An error has occured loading audio');
+            }
+            // Set clip ID
+            Adapt.audio.audioClip[this.audioChannel].newID = this.elementId;
+            // Set listener for when clip ends
+            $(Adapt.audio.audioClip[this.audioChannel]).on('ended', _.bind(this.onAudioEnded, this));
+            // Add inview listener on audio element
+            this.$('.menu-item-audio-inner').on('inview', _.bind(this.inview, this));
         },
 
         onAudioEnded: function() {
@@ -284,33 +297,6 @@ define(function(require) {
                 Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
             }
         },
-
-        /*
-        inview: function(event, visible, visiblePartX, visiblePartY) {
-            if (visible) {
-                if (visiblePartY === 'top') {
-                    this._isVisibleTop = true;
-                } else if (visiblePartY === 'bottom') {
-                    this._isVisibleBottom = true;
-                } else {
-                    this._isVisibleTop = true;
-                    this._isVisibleBottom = true;
-                }
-                // Check if visible on screen
-                if (this._isVisibleTop && this._isVisibleBottom) {
-                    // Check if audio is set to on
-                    if(Adapt.audio.audioClip[this.audioChannel].status==1){
-                        // Check if audio is set to autoplay
-                        if(this.model.get("_audio")._autoplay){
-                            Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
-                        }
-                    }
-                }
-            } else {
-                Adapt.trigger('audio:inviewOff', this.elementId, this.audioChannel);   
-            }
-        }
-        */
 
         inview: function(event, visible, visiblePartX, visiblePartY) {
             if (visible) {
@@ -338,7 +324,7 @@ define(function(require) {
         }
 
     }, {
-        template:'cover-item'
+        template:'cover-item-audio'
     });
 
     var CoverItemIndicatorView = MenuView.extend({
@@ -379,11 +365,7 @@ define(function(require) {
         postRender: function() {
             var numItems = this.model.get('_siblingsLength');
             var width = 100 / numItems;
-            /*
-            $(".menu-item-indicator").css({
-                width: width + "%"
-            });
-*/
+
             this.$('.menu-item-indicator-graphic').imageready(_.bind(function() {
                 Adapt.trigger("indicator:postRender");
                 this.setReadyStatus();
@@ -413,8 +395,7 @@ define(function(require) {
     });
 
     Adapt.on('menuView:postRender', function(view) {
-            $('.navigation-back-button').addClass('display-none');
-            //$('.navigation-drawer-toggle-button').addClass('display-none');
+        $('.navigation-back-button').addClass('display-none');
     });
     
 });
