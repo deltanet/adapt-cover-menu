@@ -86,7 +86,8 @@ define(function(require) {
         },
 
         renderAudioItems: function(item) {
-            this.$('.menu-item-'+item.get("_id") + ' > .menu-item-inner').prepend(new CoverItemAudioView({model:item}).$el);
+            //this.$('.menu-item-'+item.get("_id") + ' > .menu-item-inner').prepend(new CoverItemAudioView({model:item}).$el);
+            this.$('.menu-item-'+item.get("_id")).prepend(new CoverItemAudioView({model:item}).$el);
         },
 
         setupLayout: function() {

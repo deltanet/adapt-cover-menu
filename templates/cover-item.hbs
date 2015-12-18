@@ -1,6 +1,6 @@
 <div class="menu-item-inner" role="menuitem">
 	<div class="menu-item-title" role="heading">
-		<h2 class="menu-item-title-inner">{{{a11y_text title}}}</h2>
+		<div class="menu-item-title-inner">{{{a11y_text title}}}</div>
 	</div>
 	<div class="menu-item-body">
 		<div class="menu-item-body-inner">{{{a11y_text body}}}</div>
@@ -16,12 +16,12 @@
 	{{#if _assessment}}
 	<div class="menu-item-assement-details">
 		<div class="menu-item-assement-details-inner">
-			<div><b>Assessment Summary:</b></div>
-			<div><b>Completion status:</b> {{#if _assessment.isComplete}}Complete{{else}}Not Completed{{/if}} </div>
+			<div><b>Assessment summary</b><br><br></div>
+			<div><b>Completion status:</b> {{#if _assessment.isComplete}}Complete{{else}}Incomplete{{/if}} </div>
 			{{#if _assessment.hasScore}}
-				<div><b>Last Attempt Score:</b> {{_assessment.scoreAsPercentage}}%</div>
+				<div><b>Last attempt score:</b> {{_assessment.scoreAsPercentage}}%</div>
 			{{/if}}
-			<div><b>Passed status:</b> {{#if _assessment.isPassed}}Passed{{else}}Not Passed{{/if}} </div>
+			<div><b>Passed status:</b> {{#if _assessment.isPassed}}Passed{{else}}Not passed{{/if}} </div>
 		</div>
 	</div>
 	{{/if}}
