@@ -297,31 +297,6 @@ define(function(require) {
             } else {
                 Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
             }
-        },
-
-        inview: function(event, visible, visiblePartX, visiblePartY) {
-            if (visible) {
-                if (visiblePartX === 'left') {
-                    this._isVisibleLeft = true;
-                } else if (visiblePartX === 'right') {
-                    this._isVisibleRight = true;
-                } else {
-                    this._isVisibleLeft = true;
-                    this._isVisibleRight = true;
-                }
-                // Check if visible on screen
-                if (this._isVisibleLeft && this._isVisibleRight) {
-                    // Check if audio is set to on
-                    if(Adapt.audio.audioClip[this.audioChannel].status==1){
-                        // Check if audio is set to autoplay
-                        if(this.model.get("_audio")._autoplay){
-                            Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
-                        }
-                    }
-                }
-            } else {
-                Adapt.trigger('audio:inviewOff', this.elementId, this.audioChannel);   
-            }
         }
 
     }, {

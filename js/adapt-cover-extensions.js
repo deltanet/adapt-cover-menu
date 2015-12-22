@@ -33,8 +33,6 @@ define(function(require) {
 
     	/*handles when item is in view*/
     	currentItemInView: function(model) {
-            console.log(model.get("_id"))
-    		//console.log("CoverExtensionsView::currentItemInView:", model);
     		var $currentItemInView = $(".menu-item-" + model.get("_id"));
 
             $(".menu-item").removeClass("inview");
@@ -54,6 +52,11 @@ define(function(require) {
             $currentItemInView.find(".menu-item-duration-inner").a11y_on(true);
 
             $currentItemInView.find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', 0);
+
+            if (Adapt.audio.autoPlayGlobal && model.get('_audio') && model.get('_audio')._isEnabled && model.get('_audio')._autoplay) {
+                thisAudio = model.get('_audio');
+                Adapt.trigger('audio:playAudio', thisAudio._media.mp3, model.get('_id'), thisAudio._channel);          
+            }
 
     	}
 
