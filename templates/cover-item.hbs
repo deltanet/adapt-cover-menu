@@ -10,7 +10,11 @@
 	</div>
 	{{#unless _isLocked}}
 	<a class="menu-item-route button" href="#/id/{{_id}}" class="{{#if _isVisited}}visited{{/if}}" aria-label="{{_coverMenu_ariaLabels.menuViewButton}}">
-		{{{linkText}}}
+		{{#if _isVisited}}
+            {{{linkVisitedText}}}
+                {{else}}
+            {{{linkText}}}
+        {{/if}}
 	</a>
 	{{/unless}}
 	{{#if _assessment}}
