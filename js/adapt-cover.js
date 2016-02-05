@@ -86,7 +86,6 @@ define(function(require) {
         },
 
         renderAudioItems: function(item) {
-            //this.$('.menu-item-'+item.get("_id") + ' > .menu-item-inner').prepend(new CoverItemAudioView({model:item}).$el);
             this.$('.menu-item-'+item.get("_id")).prepend(new CoverItemAudioView({model:item}).$el);
         },
 
@@ -279,10 +278,6 @@ define(function(require) {
             }
             // Set clip ID
             Adapt.audio.audioClip[this.audioChannel].newID = this.elementId;
-            // Set listener for when clip ends
-            $(Adapt.audio.audioClip[this.audioChannel]).on('ended', _.bind(this.onAudioEnded, this));
-            // Add inview listener on audio element
-            this.$('.menu-item-audio-inner').on('inview', _.bind(this.inview, this));
         },
 
         onAudioEnded: function() {
