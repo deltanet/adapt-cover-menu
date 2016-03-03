@@ -28,6 +28,8 @@
             "_isVisited": "course/en/images/menu_btn1_started.png",
             "_isLocked":"course/en/images/menu_btn1_notStarted.png",
             "_default":"course/en/images/menu_btn1_notStarted.png",
+            "_isPassed": "course/en/images/menu_btn1_passed.png",
+            "_isFailed": "course/en/images/menu_btn1_failed.png",
             "_accessibilityEnabled": "course/en/images/menu_btn1_notStarted.png"
         },
             "_ariaLabels": {
