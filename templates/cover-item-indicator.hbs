@@ -3,19 +3,19 @@
 		{{#if _isComplete}}
 			{{#if _assessment}}
 				{{#if _assessment.isPassed}}
-				   <img src="{{_coverMenu._indicatorGraphic._isPassed}}"/>
-				 {{else}}
-				 	<img src="{{_coverMenu._indicatorGraphic._isFailed}}"/>
-				 {{/if}}
+					<img src="{{_coverMenu._indicatorGraphic._isPassed}}"/>
+				{{else}}
+					<img src="{{_coverMenu._indicatorGraphic._isFailed}}"/>
+				{{/if}}
 			{{else}}
 				<img src="{{_coverMenu._indicatorGraphic._isComplete}}"/>
 			{{/if}}
 		{{else}}
 			{{#if _isVisited}}
-			<img src="{{_coverMenu._indicatorGraphic._isVisited}}"/>
+				<img src="{{_coverMenu._indicatorGraphic._isVisited}}"/>
 			{{else}}
 				{{#if _isLocked}}
-				<img src="{{_coverMenu._indicatorGraphic._isLocked}}"/>
+					<img src="{{_coverMenu._indicatorGraphic._isLocked}}"/>
 				{{else}}
 					<img class="accessibility-indicator-graphic" src="{{_coverMenu._indicatorGraphic._default}}"/>
 				{{/if}}
