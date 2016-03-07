@@ -257,7 +257,7 @@ define(function(require) {
     var CoverItemAudioView = MenuView.extend({
 
         events:{
-            'click .menu-item-audio-toggle': 'toggleAudio'
+            'click .audio-toggle': 'toggleAudio'
         },
 
         className: "audio-controls",
@@ -272,7 +272,7 @@ define(function(require) {
                 this.$('.audio-toggle').addClass('hidden');
             }
             try {
-                this.audioFile = this.model.get("_audio")._media.mp3;
+                this.audioFile = this.model.get("_audio")._media.src;
             } catch(e) {
                 console.log('An error has occured loading audio');
             }

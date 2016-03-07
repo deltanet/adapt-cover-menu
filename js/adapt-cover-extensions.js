@@ -55,7 +55,9 @@ define(function(require) {
 
             if (Adapt.audio.autoPlayGlobal && model.get('_audio') && model.get('_audio')._isEnabled && model.get('_audio')._autoplay) {
                 thisAudio = model.get('_audio');
-                Adapt.trigger('audio:playAudio', thisAudio._media.mp3, model.get('_id'), thisAudio._channel);          
+                if(Adapt.audio.audioClip[thisAudio._channel].status==1){
+                    Adapt.trigger('audio:playAudio', thisAudio._media.mp3, model.get('_id'), thisAudio._channel);      
+                }
             }
 
         }

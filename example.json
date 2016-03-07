@@ -39,6 +39,7 @@
     },
     "linkText":"Start",
     "linkVisitedText": "Revisit",
+    "durationLabel": "Duration:",
     "duration":"2 mins",
     "_audio": {
         "_isEnabled": true,
@@ -46,8 +47,7 @@
         "_autoplay": true,
         "_channel": 0,
         "_media": {
-            "mp3": "course/en/audio/***.mp3",
-            "ogg": "course/en/audio/***.ogg"
+            "src": "course/en/audio/***.mp3"
         }
     },
     "_pageLevelProgress": {
