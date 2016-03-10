@@ -262,7 +262,9 @@ define(function(require) {
 
         className: "audio-controls",
 
-        preRender: function() {},
+        preRender: function() {
+            this.listenTo(Adapt, 'audio:updateAudioStatus', this.updateToggle);
+        },
 
         postRender: function() {
             this.audioChannel = this.model.get('_audio')._channel;
@@ -275,6 +277,10 @@ define(function(require) {
                 this.audioFile = this.model.get("_audio")._media.src;
             } catch(e) {
                 console.log('An error has occured loading audio');
+            }
+            // Hide icon if audio is turned off
+            if(Adapt.audio.audioClip[this.audioChannel].status==0){
+                this.$('.audio-toggle').addClass('hidden');
             }
             // Set clip ID
             Adapt.audio.audioClip[this.audioChannel].newID = this.elementId;
@@ -291,6 +297,14 @@ define(function(require) {
                 Adapt.trigger('audio:pauseAudio', this.audioChannel);
             } else {
                 Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
+            }
+        },
+
+        updateToggle: function(){
+            if(Adapt.audio.audioStatus == 1 && this.model.get('_audio')._showControls==true){
+                this.$('.audio-toggle').removeClass('hidden');
+            } else {
+                this.$('.audio-toggle').addClass('hidden');
             }
         }
 
