@@ -267,14 +267,14 @@ define(function(require) {
         },
 
         postRender: function() {
-            this.audioChannel = this.model.get('_audio')._channel;
+            this.audioChannel = this.model.get('_coverMenuAudio')._audio._channel;
             this.elementId = this.model.get("_id");
             // Hide controls
-            if(this.model.get('_audio')._showControls==false){
+            if(this.model.get('_coverMenuAudio')._audio._showControls==false){
                 this.$('.audio-toggle').addClass('hidden');
             }
             try {
-                this.audioFile = this.model.get("_audio")._media.src;
+                this.audioFile = this.model.get("_coverMenuAudio")._audio._media.src;
             } catch(e) {
                 console.log('An error has occured loading audio');
             }
@@ -301,7 +301,7 @@ define(function(require) {
         },
 
         updateToggle: function(){
-            if(Adapt.audio.audioStatus == 1 && this.model.get('_audio')._showControls==true){
+            if(Adapt.audio.audioStatus == 1 && this.model.get('_coverMenuAudio')._audio._showControls==true){
                 this.$('.audio-toggle').removeClass('hidden');
             } else {
                 this.$('.audio-toggle').addClass('hidden');

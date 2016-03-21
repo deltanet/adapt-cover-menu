@@ -1,4 +1,4 @@
-adapt-cover-menu
+adapt-cover-menu-audio
 ===============
 
 The cover menu is a carousel style menu. It has an optional intro screen that hides the carousel until the user clicks the start button. The menu also includes indicators that show the current selected item, item progress and locked states. The indicators can also be used to navigate between the items.
@@ -22,6 +22,19 @@ appears on the menu.
         "_isLocked":"course/en/images/origami-menu-one.jpg",
         "_default":"course/en/images/origami-menu-one.jpg",
         "_accessibilityEnabled": "course/en/images/origami-menu-one.jpg"
+    },
+    "_ariaLabels": {
+        "menuItemPage": "Page one, tab to View button to enter.",
+        "menuViewButton": "Select here to view page one."
+    },
+    "_audio": {
+        "_isEnabled": true,
+        "_showControls": true,
+        "_autoplay": true,
+        "_channel": 0,
+        "_media": {
+            "src": "course/en/audio/***.mp3"
+        }
     }
 }
 ```
@@ -69,6 +82,6 @@ Specify the introduction page and menu page in course.json.
 **Forked from:** City and Guilds Kineo [cgkineo/adapt-cover-menu](https://github.com/cgkineo/adapt-cover-menu) 
 **Accessibility support:** yes  
 **RTL support:** no     
-**Authoring tool support:** no
+**Authoring tool support:** yes
 
 ----------------------------
