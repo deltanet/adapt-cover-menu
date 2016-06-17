@@ -45,7 +45,9 @@ define(function(require) {
         },
 
         renderAudioItems: function(item) {
-            this.$('.menu-item-'+item.get("_id")).prepend(new CoverItemAudioView({model:item}).$el);
+            if(item.get('_audio') && item.get('_audio')._isEnabled) {
+                this.$('.menu-item-'+item.get("_id")).prepend(new CoverItemAudioView({model:item}).$el);
+            }
         },
 
         setupLayout: function() {
@@ -206,10 +208,16 @@ define(function(require) {
             });
         },
 
-        setBackgroundImage: function() {            
-            $(".menu-item-" + this.model.get("_id")).css({
-                backgroundImage:"url(" + this.model.get("_coverMenu")._backgroundGraphic.src + ")"
-            });
+        setBackgroundImage: function() {
+            if(this.model.get('_isLocked')) {
+                $(".menu-item-" + this.model.get("_id")).css({
+                    backgroundImage:"url(" + this.model.get("_coverMenu")._backgroundGraphic.locked + ")"
+                });
+            } else {
+                $(".menu-item-" + this.model.get("_id")).css({
+                    backgroundImage:"url(" + this.model.get("_coverMenu")._backgroundGraphic.src + ")"
+                });
+            }
         },
 
         onClickMenuItemButton: function(event) {

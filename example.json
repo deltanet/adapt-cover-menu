@@ -27,7 +27,8 @@
     "_coverMenu":{
         "_backgroundGraphic": {
             "alt": "",
-            "src": ""
+            "src": "",
+            "locked": ""
         },
         "_indicatorGraphic": {
             "_isComplete": "course/en/images/menu_btn1_complete.png",
