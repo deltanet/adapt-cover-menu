@@ -1,12 +1,12 @@
 {
-  "name": "adapt-cover-menu",
+  "name": "adapt-cover-menu-audio",
   "version": "2.0.3",
   "framework": "^2.0.0",
-  "homepage": "http://github.com/deltanet/adapt-cover-menu",
-  "displayName": "Cover menu",
-  "menu": "introcover",
+  "homepage": "http://github.com/deltanet/adapt-cover-menu-audio",
+  "displayName": "Cover menu audio",
+  "menu": "introcover audio",
   "description": "",
-  "main": "js/adapt-cover.js",
+  "main": "js/adapt-cover-audio.js",
   "keywords": [
     "adapt-plugin",
     "adapt-menu"
