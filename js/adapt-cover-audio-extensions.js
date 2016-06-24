@@ -6,7 +6,7 @@ define(function(require) {
 
     /*use this view to add extra funcitonality to Cover*/
 
-    var CoverExtensionsView = Backbone.View.extend({
+    var CoverAudioExtensionsView = Backbone.View.extend({
 
         initialize: function() {
             this.collection = this.model.getChildren();
@@ -56,7 +56,7 @@ define(function(require) {
             if (Adapt.audio.autoPlayGlobal && model.get('_coverMenuAudio') && model.get('_coverMenuAudio')._audio && model.get('_coverMenuAudio')._audio._isEnabled && model.get('_coverMenuAudio')._audio._autoplay) {
                 thisAudio = model.get('_coverMenuAudio')._audio;
                 if(Adapt.audio.audioClip[thisAudio._channel].status==1){
-                    Adapt.trigger('audio:playAudio', thisAudio._media.mp3, model.get('_id'), thisAudio._channel);      
+                    Adapt.trigger('audio:playAudio', thisAudio._media.src, model.get('_id'), thisAudio._channel);
                 }
             }
 
@@ -64,6 +64,6 @@ define(function(require) {
 
     });
 
-    return CoverExtensionsView;
+    return CoverAudioExtensionsView;
 
  });

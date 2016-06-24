@@ -3,7 +3,7 @@ define(function(require) {
     var Backbone = require('backbone');
     var Adapt = require('coreJS/adapt');
     var MenuView = require('coreViews/menuView');
-    var CoverExtensions = require("menu/adapt-cover-menu/js/adapt-cover-extensions");
+    var CoverAudioExtensions = require("menu/adapt-cover-menu-audio/js/adapt-cover-audio-extensions");
     
     var CoverView = MenuView.extend({
 
@@ -15,47 +15,6 @@ define(function(require) {
         },
 
         preRender: function() {
-            var nthChild = 0;
-            this.model.getChildren().each(function(item) {
-                if(item.get('_isAvailable')) {
-                    var assessmentArticle = item.getChildren().find(function(article) { 
-                        return article.has('_assessment');
-                    });
-
-                    var isAssessment = assessmentArticle != undefined;
-                    if (isAssessment) {
-                        var scoreAsPercentage = assessmentArticle.get('_isAssessmentComplete')
-                            ? assessmentArticle.get('_lastAttemptScoreAsPercent')
-                            : null;
-                        var hasScore = (scoreAsPercentage != null && !isNaN(scoreAsPercentage));
-                        item.set("_assessment", { 
-                            isComplete : assessmentArticle.has('_isAssessmentComplete')
-                                ? assessmentArticle.get('_isAssessmentComplete')
-                                : false,
-                            hasScore: hasScore,
-                            scoreAsPercentage : scoreAsPercentage,
-                            isPassed : assessmentArticle.has('_isPass') 
-                                ? assessmentArticle.get('_isPass') 
-                                : false
-                        });
-                    }
-
-                    item.set("_isLocked", false);
-                    if (item.get("_lock")) {
-                        var contentObjects = item.get("_lock");
-                        var completeCount = 0;
-                        for( var i = 0; i < contentObjects.length; i++) {
-                            if (Adapt.contentObjects.findWhere({_id:contentObjects[i]}).get("_isComplete")) {
-                                completeCount++;
-                            }
-                        }
-                        if (completeCount < contentObjects.length) {
-                            item.set("_isLocked", true);
-                        }
-                    }
-                }
-            });
-
             MenuView.prototype.preRender.call(this);
             this.listenTo(Adapt, "indicator:clicked", this.navigateToCurrentIndex);
             this.listenTo(Adapt, "menuView:ready", this.setupIndicatorLayout);
@@ -86,7 +45,9 @@ define(function(require) {
         },
 
         renderAudioItems: function(item) {
-            this.$('.menu-item-'+item.get("_id")).prepend(new CoverItemAudioView({model:item}).$el);
+            if(item.get('_audio') && item.get('_audio')._isEnabled) {
+                this.$('.menu-item-'+item.get("_id")).prepend(new CoverItemAudioView({model:item}).$el);
+            }
         },
 
         setupLayout: function() {
@@ -215,12 +176,15 @@ define(function(require) {
 
     var CoverItemView = MenuView.extend({
 
-        events:{},
+        events:{
+            'click button' : 'onClickMenuItemButton'
+        },
 
         className: function() {
             return [
                 'menu-item',
                 'menu-item-' + this.model.get('_id') ,
+                this.model.get('_isLocked') ? 'locked' : '',
                 'nth-child-' + this.model.get('_nthChild'),
                 this.model.get('_nthChild') % 2 === 0  ? 'nth-child-even' : 'nth-child-odd'
             ].join(' ');
@@ -244,10 +208,22 @@ define(function(require) {
             });
         },
 
-        setBackgroundImage: function() {            
-            $(".menu-item-" + this.model.get("_id")).css({
-                backgroundImage:"url(" + this.model.get("_coverMenu")._backgroundGraphic.src + ")"
-            });
+        setBackgroundImage: function() {
+            if(this.model.get('_isLocked')) {
+                $(".menu-item-" + this.model.get("_id")).css({
+                    backgroundImage:"url(" + this.model.get("_coverMenu")._backgroundGraphic.locked + ")"
+                });
+            } else {
+                $(".menu-item-" + this.model.get("_id")).css({
+                    backgroundImage:"url(" + this.model.get("_coverMenu")._backgroundGraphic.src + ")"
+                });
+            }
+        },
+
+        onClickMenuItemButton: function(event) {
+            if(event && event.preventDefault) event.preventDefault();
+            if(this.model.get('_isLocked')) return;
+            Backbone.history.navigate('#/id/' + this.model.get('_id'), {trigger: true});
         }
 
     }, {
@@ -376,7 +352,7 @@ define(function(require) {
     
     Adapt.on('router:menu', function(model) {
         $('#wrapper').append(new CoverView({model:model}).$el);
-        new CoverExtensions({model:model});
+        new CoverAudioExtensions({model:model});
     });
 
     Adapt.on('menuView:postRender', function(view) {

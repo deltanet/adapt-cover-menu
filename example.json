@@ -16,7 +16,6 @@
     }
 }
 // _type = page
-
 {
     "_id":"co-05",
     "_parentId":"course",
@@ -28,15 +27,16 @@
     "_coverMenuAudio":{
         "_backgroundGraphic": {
             "alt": "",
-            "src": ""
+            "src": "",
+            "locked": ""
         },
         "_indicatorGraphic": {
             "_isComplete": "course/en/images/menu_btn1_complete.png",
             "_isVisited": "course/en/images/menu_btn1_started.png",
-            "_isLocked":"course/en/images/menu_btn1_notStarted.png",
+            "_isLocked":"course/en/images/menu_padlock.png",
             "_default":"course/en/images/menu_btn1_notStarted.png",
-            "_isPassed": "course/en/images/menu_btn1_passed.png",
-            "_isFailed": "course/en/images/menu_btn1_failed.png",
+            "_isPassed": "course/en/images/menu_tick.png",
+            "_isFailed": "course/en/images/menu_cross.png",
             "_accessibilityEnabled": "course/en/images/menu_btn1_notStarted.png"
         },
         "_ariaLabels": {
@@ -53,6 +53,7 @@
             }
         }
     },
+    "linkLockedText": "Locked",
     "linkText":"Start",
     "linkVisitedText": "Revisit",
     "durationLabel": "Duration:",

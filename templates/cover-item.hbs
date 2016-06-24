@@ -8,28 +8,16 @@
 	<div class="menu-item-duration">
 		<div class="menu-item-duration-inner">{{{a11y_text durationLabel}}} {{{a11y_text duration}}}</div>
 	</div>
-	{{#unless _isLocked}}
-	<a class="menu-item-route button" href="#/id/{{_id}}" class="{{#if _isVisited}}visited{{/if}}" aria-label="{{_coverMenu_ariaLabels.menuViewButton}}">
+	<button aria-label="{{linkText}} {{#if _isVisited}}{{_globals._accessibility._ariaLabels.visited}}{{/if}}" class="menu-item-route {{#if _isVisited}}visited{{/if}} {{#if _isLocked}}disabled{{/if}} accessible-text-block">
+    {{#if _isLocked}}
+    {{{linkLockedText}}}
+        {{else}}
 		{{#if _isVisited}}
-            {{{linkVisitedText}}}
-                {{else}}
-            {{{linkText}}}
-        {{/if}}
-	</a>
-	{{/unless}}
-	{{#if _assessment}}
-	<!--
-	<div class="menu-item-assement-details">
-		<div class="menu-item-assement-details-inner">
-			<div><b>Assessment summary</b><br><br></div>
-			<div><b>Completion status:</b> {{#if _assessment.isComplete}}Complete{{else}}Incomplete{{/if}} </div>
-			{{#if _assessment.hasScore}}
-				<div><b>Last attempt score:</b> {{_assessment.scoreAsPercentage}}%</div>
-			{{/if}}
-			<div><b>Passed status:</b> {{#if _assessment.isPassed}}Passed{{else}}Not passed{{/if}} </div>
-		</div>
-	</div>
-	-->
+		    {{{linkVisitedText}}}
+		    {{else}}
+		    {{{linkText}}}
+		{{/if}}
 	{{/if}}
+    </button>
 	<div class="menu-item-spacer"></div>
 </div>
