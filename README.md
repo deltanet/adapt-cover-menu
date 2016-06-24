@@ -1,9 +1,4 @@
 adapt-cover-menu-audio
-<<<<<<< HEAD
-===============
-=======
-======================
->>>>>>> master
 
 The cover menu is a carousel style menu. It has an optional intro screen that hides the carousel until the user clicks the start button. The menu also includes indicators that show the current selected item, item progress and locked states. The indicators can also be used to navigate between the items.
 
@@ -84,7 +79,7 @@ Specify the introduction page and menu page in course.json.
 **Version number:**  2.0.4     
 **Framework versions supported:**  2.0.0     
 **Author / maintainer:** DeltaNet with [contributors](https://github.com/deltanet/adapt-cover-menu-audio/graphs/contributors)     
-**Forked from:** City and Guilds Kineo [cgkineo/adapt-cover-menu](https://github.com/cgkineo/adapt-cover-menu) 
+**Forked from:** City and Guilds Kineo [cgkineo/adapt-cover-menu](https://github.com/cgkineo/adapt-cover-menu)
 **Accessibility support:** yes  
 **RTL support:** no     
 **Authoring tool support:** yes
