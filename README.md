@@ -22,6 +22,8 @@ appears on the menu.
         "_isVisited": "course/en/images/origami-menu-two.jpg",
         "_isLocked":"course/en/images/origami-menu-one.jpg",
         "_default":"course/en/images/origami-menu-one.jpg",
+        "_isPassed": "course/en/images/menu_tick.png",
+        "_isFailed": "course/en/images/menu_cross.png",
         "_accessibilityEnabled": "course/en/images/origami-menu-one.jpg"
     }
 }
@@ -44,11 +46,13 @@ Set the background graphic of the item slide. Images are scaled up/down to fill.
 
 ```
 "_indicatorGraphic": {
-    "_isComplete": "course/en/images/origami-menu-three.jpg",
-    "_isVisited": "course/en/images/origami-menu-two.jpg",
-    "_isLocked":"course/en/images/origami-menu-one.jpg",
-    "_default":"course/en/images/origami-menu-one.jpg",
-    "_accessibilityEnabled": "course/en/images/origami-menu-one.jpg"
+    "_isComplete": "course/en/images/menu_btn1_complete.png",
+    "_isVisited": "course/en/images/menu_btn1_started.png",
+    "_isLocked":"course/en/images/menu_padlock.png",
+    "_default":"course/en/images/menu_btn1_notStarted.png",
+    "_isPassed": "course/en/images/menu_tick.png",
+    "_isFailed": "course/en/images/menu_cross.png",
+    "_accessibilityEnabled": "course/en/images/menu_btn1_notStarted.png"
 }
 ```
 
