@@ -201,11 +201,21 @@ define(function(require) {
 
         preRender: function() {
             this.listenTo(Adapt, "device:resize", this.setupItemLayout);
+            if (!this.model.get('_isComplete') && !this.model.get('_isVisited')) {
+                this.setVisitedIfBlocksComplete();
+            }
         },
 
         postRender: function() {
             this.setupItemLayout();
             this.setBackgroundImage();
+        },
+
+        setVisitedIfBlocksComplete: function() {
+            var completedBlock = this.model.findDescendants('blocks').findWhere({'_isComplete': true});
+            if (completedBlock != undefined) {
+                this.model.set('_isVisited', true);
+            }
         },
 
         setupItemLayout: function() {
