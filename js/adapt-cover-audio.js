@@ -201,7 +201,7 @@ define(function(require) {
 
         preRender: function() {
             this.listenTo(Adapt, "device:resize", this.setupItemLayout);
-            if (!this.model.get('_isComplete') && !this.model.get('_isVisited')) {
+            if (!this.model.get('_isVisited')) {
                 this.setVisitedIfBlocksComplete();
             }
         },
