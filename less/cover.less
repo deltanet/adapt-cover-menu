@@ -63,13 +63,21 @@
 	        &:hover {
 	            background-color:@button-color-hover;
 	            color:@button-text-color-hover;
-	        } 
+	        }
 	    }
 		&.menu-item-control-left {
 			left:0px;
+			.dir-rtl & {
+				left:inherit;
+	      right:0px;
+	    }
 		}
 		&.menu-item-control-right {
 			right:0px;
+			.dir-rtl & {
+				right:inherit;
+	      left:0px;
+	    }
 		}
 		&.menu-item-control-hide {
 			display:none;
@@ -88,6 +96,9 @@
 		background-size: cover;
 		background-position: center;
 		float:left;
+		.dir-rtl & {
+			float:right;
+		}
 		@media all and (max-width:@device-width-small) {
 			overflow: auto;
 			margin: auto;
@@ -129,7 +140,10 @@
 
 	.audio-inner {
 		display:inline;
-    	float: right;
+    float: right;
+		.dir-rtl & {
+			float:left;
+		}
 	}
 
 	.audio-toggle {
@@ -219,6 +233,9 @@
 
 	.menu-item-indicator {
 		float:left;
+		.dir-rtl & {
+			float:right;
+		}
 		&.selected {
 			.menu-item-indicator-graphic {
 				opacity:1;

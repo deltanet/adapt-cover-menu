@@ -4,7 +4,7 @@ define(function(require) {
     var Adapt = require('coreJS/adapt');
     var MenuView = require('coreViews/menuView');
     var CoverAudioExtensions = require("menu/adapt-cover-menu-audio/js/adapt-cover-audio-extensions");
-    
+
     var CoverView = MenuView.extend({
 
         events:{
@@ -19,7 +19,7 @@ define(function(require) {
             this.listenTo(Adapt, "indicator:clicked", this.navigateToCurrentIndex);
             this.listenTo(Adapt, "menuView:ready", this.setupIndicatorLayout);
         },
-        
+
         postRender: function() {
             this.listenTo(Adapt, "device:resize", this.setupLayout);
             var nthChild = 0;
@@ -51,9 +51,18 @@ define(function(require) {
         },
 
         setupLayout: function() {
+          this.model.set('_marginDir', 'left');
+          if (Adapt.config.get('_defaultDirection') == 'rtl') {
+              this.model.set('_marginDir', 'right');
+          }
+
             var width = $("#wrapper").width();
             var height = $(window).height() - $(".navigation").height();
             this.model.set({width:width});
+
+            var stage = this.model.get('_stage');
+            var margin = -(stage * width);
+
            if (Adapt.course.get("_coverMenu") && Adapt.course.get("_coverMenu")._introScreen) {
                 this.$(".menu-intro-screen").css({
                     width:width,
@@ -67,6 +76,9 @@ define(function(require) {
                 width:width * this.model.getChildren().length + "px",
                 height: (height -$(".menu-item-indicator-container").height()) +"px"
             });
+
+            this.$('.menu-item-container-inner').css(('margin-' + this.model.get('_marginDir')), margin);
+
             $(".menu").css({
                 height:height,
                 overflow:"hidden"
@@ -87,12 +99,13 @@ define(function(require) {
         },
 
         navigateToCurrentIndex: function(index) {
-            this.$('.menu-item-container-inner').velocity({
-                marginLeft:-(index * this.model.get("width")) + "px"
-            });
-            this.model.set({_coverIndex:index});
-            Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
-            this.configureNavigationControls(index);
+          var movementSize = $("#wrapper").width();
+          var marginDir = {};
+          marginDir['margin-' + this.model.get('_marginDir')] = -(movementSize * index);
+          this.$('.menu-item-container-inner').velocity("stop", true).velocity(marginDir);
+          this.model.set({_coverIndex:index});
+          Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
+          this.configureNavigationControls(index);
         },
 
         navigateToIntro: function(event) {
@@ -127,9 +140,7 @@ define(function(require) {
             currentIndex--;
             this.configureNavigationControls(currentIndex);
             this.model.set({_coverIndex:currentIndex});
-            this.$('.menu-item-container-inner').velocity({
-                marginLeft:-(this.model.get("_coverIndex") * this.model.get("width")) + "px"
-            });
+            this.navigateToCurrentIndex(this.model.get("_coverIndex"));
             Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
         },
 
@@ -139,9 +150,7 @@ define(function(require) {
             currentIndex++;
             this.configureNavigationControls(currentIndex);
             this.model.set({_coverIndex:currentIndex});
-            this.$('.menu-item-container-inner').velocity({
-                marginLeft:-(this.model.get("_coverIndex") * this.model.get("width")) + "px"
-            });
+            this.navigateToCurrentIndex(this.model.get("_coverIndex"));
             Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
         },
 
@@ -192,11 +201,21 @@ define(function(require) {
 
         preRender: function() {
             this.listenTo(Adapt, "device:resize", this.setupItemLayout);
+            if (!this.model.get('_isVisited')) {
+                this.setVisitedIfBlocksComplete();
+            }
         },
 
         postRender: function() {
             this.setupItemLayout();
             this.setBackgroundImage();
+        },
+
+        setVisitedIfBlocksComplete: function() {
+            var completedBlock = this.model.findDescendants('components').findWhere({_isComplete: true, _isOptional: false});
+            if (completedBlock != undefined) {
+                this.model.set('_isVisited', true);
+            }
         },
 
         setupItemLayout: function() {
@@ -268,7 +287,7 @@ define(function(require) {
 
         toggleAudio: function(event) {
             if (event) event.preventDefault();
- 
+
             if ($(event.currentTarget).hasClass('playing')) {
                 Adapt.trigger('audio:pauseAudio', this.audioChannel);
             } else {
@@ -309,7 +328,7 @@ define(function(require) {
                 this.setVisitedIfBlocksComplete();
             }
 
-            var isCompletedAssessment = (this.model.get('_assessment') 
+            var isCompletedAssessment = (this.model.get('_assessment')
                     && this.model.get('_assessment')._isComplete && !this.model.get('_isComplete'));
             if (isCompletedAssessment) {
                 this.model.set('_isComplete', true);
@@ -319,8 +338,8 @@ define(function(require) {
         setVisitedIfBlocksComplete: function() {
             var completedBlock = this.model.findDescendants('blocks').findWhere({'_isComplete': true});
             if (completedBlock != undefined) {
-                this.model.set('_isVisited', true);  
-            } 
+                this.model.set('_isVisited', true);
+            }
         },
 
         postRender: function() {
@@ -349,7 +368,7 @@ define(function(require) {
     }, {
         template:'cover-item-indicator'
     });
-    
+
     Adapt.on('router:menu', function(model) {
         $('#wrapper').append(new CoverView({model:model}).$el);
         new CoverAudioExtensions({model:model});
@@ -358,5 +377,5 @@ define(function(require) {
     Adapt.on('menuView:postRender', function(view) {
         $('.navigation-back-button').addClass('display-none');
     });
-    
+
 });
