@@ -47,7 +47,6 @@
             "_coverMenuAudio": {
               "type": "object",
               "required": false,
-              "legend": "Cover Menu Audio",
               "properties": {
                 "_introScreen": {
                   "type":"boolean",
@@ -60,7 +59,6 @@
               }
             }
           }
-        }
         },
         "contentobject": {
           "type": "object",
@@ -68,7 +66,6 @@
             "_coverMenuAudio": {
               "type": "object",
               "required": false,
-              "legend": "Cover Menu Audio",
               "properties": {
                 "_introItemGraphic": {
                   "type": "object",
@@ -281,3 +278,4 @@
       }
     }
   }
+}
