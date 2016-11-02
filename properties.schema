@@ -9,28 +9,32 @@
       "required": true,
       "default": "Menu",
       "inputType": "Text",
-      "validators": []
+      "validators": [],
+      "translatable": true
     },
     "durationLabel": {
       "type": "string",
       "required": true,
       "default": "Duration:",
       "inputType": "Text",
-      "validators": []
+      "validators": [],
+      "translatable": true
     },
     "menuItem": {
       "type": "string",
       "required": true,
       "default": "Menu item.",
       "inputType": "Text",
-      "validators": []
+      "validators": [],
+      "translatable": true
     },
     "menuEnd": {
       "type": "string",
       "required": true,
       "default": "You have reached the end of the menu.",
       "inputType": "Text",
-      "validators": []
+      "validators": [],
+      "translatable": true
     }
   },
   "properties": {
@@ -79,7 +83,8 @@
                       "default": "",
                       "inputType": "Text",
                       "validators": [],
-                      "help": "Alternative text for this items image"
+                      "help": "Alternative text for this items image",
+                      "translatable": true
                     },
                     "src": {
                       "type": "string",
@@ -95,7 +100,8 @@
                       "default": "",
                       "title": "Title",
                       "inputType": "Text",
-                      "validators": []
+                      "validators": [],
+                      "translatable": true
                     }
                   }
                 },
@@ -110,7 +116,8 @@
                       "default": "",
                       "inputType": "Text",
                       "validators": [],
-                      "help": "Alternative text for this items image"
+                      "help": "Alternative text for this items image",
+                      "translatable": true
                     },
                     "src": {
                       "type": "string",
@@ -197,7 +204,8 @@
                       "title": "Menu - Aria Label",
                       "inputType": "Text",
                       "validators": [],
-                      "help": "Menu aria label for this page"
+                      "help": "Menu aria label for this page",
+                      "translatable": true
                     },
                     "menuViewButton": {
                       "type": "string",
@@ -206,7 +214,8 @@
                       "title": "Menu Button - Aria Label",
                       "inputType": "Text",
                       "validators": [],
-                      "help": "Aria label for the menu link for this page"
+                      "help": "Aria label for the menu link for this page",
+                      "translatable": true
                     }
                   }
                 },
