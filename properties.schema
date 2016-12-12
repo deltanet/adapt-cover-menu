@@ -138,6 +138,7 @@
                     "_isComplete": {
                       "type": "string",
                       "required": true,
+                      "title": "Completed Graphic",
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
@@ -146,6 +147,7 @@
                     "_isVisited": {
                       "type": "string",
                       "required": true,
+                      "title": "Visited Graphic",
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
@@ -154,6 +156,7 @@
                     "_isLocked": {
                       "type": "string",
                       "required": true,
+                      "title": "Locked Graphic",
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
@@ -162,6 +165,7 @@
                     "_default": {
                       "type": "string",
                       "required": true,
+                      "title": "Default Graphic",
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
@@ -170,6 +174,7 @@
                     "_isPassed": {
                       "type": "string",
                       "required": true,
+                      "title": "Passed Graphic",
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
@@ -178,6 +183,7 @@
                     "_isFailed": {
                       "type": "string",
                       "required": true,
+                      "title": "Failed Graphic",
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
@@ -186,6 +192,7 @@
                     "_accessibilityEnabled": {
                       "type": "string",
                       "required": true,
+                      "title": "Accesibility Enabled Graphic",
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
@@ -264,7 +271,7 @@
                           "required":true,
                           "title": "Menu Audio",
                           "inputType": "Asset:audio",
-                          "validators": ["required"],
+                          "validators": [],
                           "help": "This is the audio source used when page is viewed at mobile resolution"
                         }
                       }
