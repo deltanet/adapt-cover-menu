@@ -1,10 +1,10 @@
 {
   "name": "adapt-cover-menu-audio",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "framework": "^2.0.0",
-  "homepage": "http://github.com/deltanet/adapt-cover-menu-audio",
+  "homepage": "http://github.com/deltanet/adapt-cover-menu",
   "displayName": "Cover menu audio",
-  "menu": "introcover audio",
+  "menu": "introcoveraudio",
   "description": "",
   "main": "js/adapt-cover-audio.js",
   "keywords": [
@@ -12,5 +12,5 @@
     "adapt-menu"
   ],
   "license": "GPL-3.0",
-  "targetAttribute": "_coverMenu"
+  "targetAttribute": "_coverMenuAudio"
 }

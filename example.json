@@ -1,5 +1,5 @@
 // in course.json _globals
-"_covermenu": {
+"_coverMenuAudio": {
     "ariaRegion": "Menu",
     "menuItem": "Menu item.",
     "menuEnd": "You have reached the end of the menu."
@@ -8,7 +8,7 @@
 // in contentObjects.json, on each object to appear on the menu. This replaces the "_graphic" data object
 //
 // _type = menu
-"_coverMenu":{
+"_coverMenuAudio":{
     "_introItemGraphic": {
         "alt": "",
         "src": "course/en/images/menu_returnArrow.png",
@@ -24,7 +24,7 @@
     "title":"Welcome to Adapt Learning",
     "displayTitle":"Welcome to Adapt Learning",
     "body":"This page contains a working Adapt page with all core bundled components and plugins working.",
-    "_coverMenu":{
+    "_coverMenuAudio":{
         "_backgroundGraphic": {
             "alt": "",
             "src": "",
@@ -39,31 +39,31 @@
             "_isFailed": "course/en/images/menu_cross.png",
             "_accessibilityEnabled": "course/en/images/menu_btn1_notStarted.png"
         },
-            "_ariaLabels": {
+        "_ariaLabels": {
             "menuItemPage": "Page one, tab to View button to enter.",
             "menuViewButton": "Select here to view page one."
-        } 
+        },
+        "_audio": {
+            "_isEnabled": true,
+            "_showControls": true,
+            "_autoplay": true,
+            "_channel": 0,
+            "_media": {
+                "src": "course/en/audio/***.mp3"
+            }
+        }
     },
     "linkLockedText": "Locked",
     "linkText":"Start",
     "linkVisitedText": "Revisit",
     "durationLabel": "Duration:",
     "duration":"2 mins",
-    "_audio": {
-        "_isEnabled": true,
-        "_showControls": true,
-        "_autoplay": true,
-        "_channel": 0,
-        "_media": {
-            "src": "course/en/audio/***.mp3"
-        }
-    },
     "_pageLevelProgress": {
         "_isEnabled": true
     }
 }
 
 // set the intro screen on/off in all menus in the course.json
-"_coverMenu":{
+"_coverMenuAudio":{
     "_introScreen": true
 }
