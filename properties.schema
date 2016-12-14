@@ -129,6 +129,33 @@
                     }
                   }
                 },
+                "linkLockedText": {
+                  "type": "string",
+                  "required": false,
+                  "default": "Locked",
+                  "title": "Locked button link text",
+                  "inputType": "Text",
+                  "validators": [],
+                  "translatable": true
+                },
+                "linkVisitedText": {
+                  "type": "string",
+                  "required": false,
+                  "default": "Revisit",
+                  "title": "Visited button link text",
+                  "inputType": "Text",
+                  "validators": [],
+                  "translatable": true
+                },
+                "durationLabel": {
+                  "type": "string",
+                  "required": false,
+                  "default": "Duration",
+                  "title": "Duration text",
+                  "inputType": "Text",
+                  "validators": [],
+                  "translatable": true
+                },
                 "_indicatorGraphic": {
                   "type": "object",
                   "required": false,

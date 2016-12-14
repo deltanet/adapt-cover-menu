@@ -3,21 +3,21 @@
 		{{#if _isComplete}}
 			{{#if _assessment}}
 				{{#if _assessment.isPassed}}
-					<img src="{{_coverMenu._indicatorGraphic._isPassed}}"/>
+					<img src="{{menuSettings._coverMenuAudio._indicatorGraphic._isPassed}}"/>
 				{{else}}
-					<img src="{{_coverMenu._indicatorGraphic._isFailed}}"/>
+					<img src="{{menuSettings._coverMenuAudio._indicatorGraphic._isFailed}}"/>
 				{{/if}}
 			{{else}}
-				<img src="{{_coverMenu._indicatorGraphic._isComplete}}"/>
+				<img src="{{menuSettings._coverMenuAudio._indicatorGraphic._isComplete}}"/>
 			{{/if}}
 		{{else}}
 			{{#if _isVisited}}
-				<img src="{{_coverMenu._indicatorGraphic._isVisited}}"/>
+				<img src="{{menuSettings._coverMenuAudio._indicatorGraphic._isVisited}}"/>
 			{{else}}
 				{{#if _isLocked}}
-					<img src="{{_coverMenu._indicatorGraphic._isLocked}}"/>
+					<img src="{{menuSettings._coverMenuAudio._indicatorGraphic._isLocked}}"/>
 				{{else}}
-					<img class="accessibility-indicator-graphic" src="{{_coverMenu._indicatorGraphic._default}}"/>
+					<img class="accessibility-indicator-graphic" src="{{menuSettings._coverMenuAudio._indicatorGraphic._default}}"/>
 				{{/if}}
 			{{/if}}
 		{{/if}}
