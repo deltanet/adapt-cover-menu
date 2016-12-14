@@ -53,8 +53,8 @@ define(function(require) {
 
             $currentItemInView.find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', 0);
 
-            if (model.get('_coverMenuAudio') && model.get('_coverMenuAudio')._audio && model.get('_coverMenuAudio')._audio._isEnabled && model.get('_coverMenuAudio')._audio._autoplay) {
-                thisAudio = model.get('_coverMenuAudio')._audio;
+            if (model.get('menuSettings') && model.get('menuSettings')._coverMenuAudio && model.get('menuSettings')._coverMenuAudio._audio && model.get('menuSettings')._coverMenuAudio._audio._isEnabled && model.get('menuSettings')._coverMenuAudio._audio._autoplay) {
+                thisAudio = model.get('menuSettings')._coverMenuAudio._audio;
                 Adapt.trigger('audio:playAudio', thisAudio._media.src, model.get('_id'), thisAudio._channel);
             }
 
