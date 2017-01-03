@@ -256,11 +256,12 @@
                 "_audio": {
                   "type": "object",
                   "required": false,
+                  "title": "Audio",
                   "properties": {
                     "_isEnabled": {
                       "type":"boolean",
                       "required":true,
-                      "title": "Enabled",
+                      "title": "Is Enabled",
                       "inputType": { "type": "Boolean", "options": [false, true]},
                       "validators": [],
                       "help": "Turns audio on and off. Acceptable values are true and false."
@@ -268,14 +269,14 @@
                     "_showControls": {
                       "type":"boolean",
                       "required":true,
-                      "title": "Show Audio Controls",
+                      "title": "Show Controls",
                       "inputType": { "type": "Boolean", "options": [false, true]},
                       "validators": []
                     },
                     "_autoplay": {
                       "type":"boolean",
                       "required":false,
-                      "title": "Autoplays Audio",
+                      "title": "Autoplay Audio",
                       "inputType": { "type": "Boolean", "options": [false, true]},
                       "validators": [],
                       "help": "Turns Audio Autoplay on and off. Acceptable values are true and false."
@@ -292,14 +293,14 @@
                     "_media": {
                       "type":"object",
                       "required":true,
+                      "title": "Audio Asset",
                       "properties":{
                         "src": {
                           "type":"string",
                           "required":true,
-                          "title": "Menu Audio",
+                          "title": "Src",
                           "inputType": "Asset:audio",
-                          "validators": [],
-                          "help": "This is the audio source used when page is viewed at mobile resolution"
+                          "validators": []
                         }
                       }
                     }
