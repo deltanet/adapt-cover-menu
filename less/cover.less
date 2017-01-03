@@ -88,10 +88,8 @@
 		.transition-all-colors;
 	}
 
-
 	// Menu Item
 	// =========
-
 	.menu-item {
 		background-size: cover;
 		background-position: center;
@@ -147,22 +145,22 @@
 	}
 
 	.audio-toggle {
-        color: @item-text-color;
-        background-color: @item-color;
-        padding: @item-padding;
-        .transition-all-colors;
-        &:hover{
-        	color: @item-text-color-hover;
-            background-color: @item-color-hover;
-        }
-        &.hidden {
-	        display: none;
+      color: @item-text-color;
+      background-color: @item-color;
+      padding: @item-padding;
+      .transition-all-colors;
+      &:hover{
+        color: @item-text-color-hover;
+          background-color: @item-color-hover;
+      }
+      &.hidden {
+	      display: none;
 	    }
 	}
 
 	.hidden {
-        display: none;
-    }
+      display: none;
+  }
 
 	.menu-item-title {
 		font-size: @menu-title-font-size;
@@ -199,11 +197,11 @@
 	.menu-item-duration {
 		display: block;
 		color:@menu-secondary-font-color;
+		padding-bottom: 20px;
 	}
 
 	// Menu Item Indicator Container
 	// =============================
-
 	.menu-item-indicator-container {
 		position: fixed;
 		bottom: 0px;
@@ -226,11 +224,13 @@
 		margin:auto;
 	}
 
-
+	// PLP
+	.page-level-progress-menu-item-indicator {
+	  border: 2px solid @menu-secondary-font-color;
+	}
 
 	// Menu Item Indicator
 	// ===================
-
 	.menu-item-indicator {
 		float:left;
 		.dir-rtl & {
@@ -271,7 +271,6 @@
 			}
 		}
 
-
 	}
 
 	.menu-item-assement-details {
@@ -289,7 +288,6 @@
 
 	// Letterbox sized viewports
 	// =========================
-
 	@media (max-height: 440px) and (max-width: @device-width-large) {
 
 		.menu-item-inner {
