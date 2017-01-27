@@ -55,7 +55,9 @@ define(function(require) {
 
             if (model.get('menuSettings') && model.get('menuSettings')._coverMenuAudio && model.get('menuSettings')._coverMenuAudio._audio && model.get('menuSettings')._coverMenuAudio._audio._isEnabled && model.get('menuSettings')._coverMenuAudio._audio._autoplay) {
                 thisAudio = model.get('menuSettings')._coverMenuAudio._audio;
-                Adapt.trigger('audio:playAudio', thisAudio._media.src, model.get('_id'), thisAudio._channel);
+                if(Adapt.audio.audioClip[thisAudio._channel].status == 1) {
+                  Adapt.trigger('audio:playAudio', thisAudio._media.src, model.get('_id'), thisAudio._channel);
+                }
             }
 
         }
