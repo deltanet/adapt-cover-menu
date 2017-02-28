@@ -63,7 +63,7 @@ define(function(require) {
             var stage = this.model.get('_stage');
             var margin = -(stage * width);
 
-           if (Adapt.course.get("menuSettings") && Adapt.course.get("menuSettings")._coverMenuAudio && Adapt.course.get("menuSettings")._coverMenuAudio._introScreen) {
+           if (Adapt.course.get("_coverMenuAudio") && Adapt.course.get("_coverMenuAudio")._introScreen) {
                 this.$(".menu-intro-screen").css({
                     width:width,
                     height:height
@@ -230,11 +230,11 @@ define(function(require) {
         setBackgroundImage: function() {
             if(this.model.get('_isLocked')) {
                 $(".menu-item-" + this.model.get("_id")).css({
-                    backgroundImage:"url(" + this.model.get("menuSettings")._coverMenuAudio._backgroundGraphic.locked + ")"
+                    backgroundImage:"url(" + this.model.get("_coverMenuAudio")._backgroundGraphic.locked + ")"
                 });
             } else {
                 $(".menu-item-" + this.model.get("_id")).css({
-                    backgroundImage:"url(" + this.model.get("menuSettings")._coverMenuAudio._backgroundGraphic.src + ")"
+                    backgroundImage:"url(" + this.model.get("_coverMenuAudio")._backgroundGraphic.src + ")"
                 });
             }
         },
@@ -262,14 +262,14 @@ define(function(require) {
         },
 
         postRender: function() {
-            this.audioChannel = this.model.get('menuSettings')._coverMenuAudio._audio._channel;
+            this.audioChannel = this.model.get('_coverMenuAudio')._audio._channel;
             this.elementId = this.model.get("_id");
             // Hide controls
-            if(this.model.get('menuSettings')._coverMenuAudio._audio._showControls==false){
+            if(this.model.get('_coverMenuAudio')._audio._showControls==false){
                 this.$('.audio-toggle').addClass('hidden');
             }
             try {
-                this.audioFile = this.model.get("menuSettings")._coverMenuAudio._audio._media.src;
+                this.audioFile = this.model.get("_coverMenuAudio")._audio._media.src;
             } catch(e) {
                 console.log('An error has occured loading audio');
             }
@@ -296,7 +296,7 @@ define(function(require) {
         },
 
         updateToggle: function(){
-            if(Adapt.audio.audioStatus == 1 && this.model.get('menuSettings')._coverMenuAudio._audio._showControls==true){
+            if(Adapt.audio.audioStatus == 1 && this.model.get('_coverMenuAudio')._audio._showControls==true){
                 this.$('.audio-toggle').removeClass('hidden');
             } else {
                 this.$('.audio-toggle').addClass('hidden');
