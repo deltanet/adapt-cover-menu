@@ -126,6 +126,14 @@
                       "inputType": "Asset:image",
                       "validators": [],
                       "help": "Background image for this page"
+                    },
+                    "locked": {
+                      "type": "string",
+                      "required": true,
+                      "default": "",
+                      "inputType": "Asset:image",
+                      "validators": [],
+                      "help": "Background image for this page when it is locked"
                     }
                   }
                 },
