@@ -54,11 +54,11 @@
               "properties": {
                 "_introScreen": {
                   "type":"boolean",
-                  "required":false,
+                  "required": false,
                   "title": "Menu Intro Screen",
-                  "inputType": { "type": "Boolean", "options": [false, true]},
+                  "inputType": "Checkbox",
                   "validators": [],
-                  "help": "Turns the menu intro screen on and off. Acceptable values are true and false."
+                  "help": "Turns the menu intro screen on and off."
                 }
               }
             }
@@ -83,7 +83,7 @@
                       "default": "",
                       "inputType": "Text",
                       "validators": [],
-                      "help": "Alternative text for this items image",
+                      "help": "Alternative text for this items image.",
                       "translatable": true
                     },
                     "src": {
@@ -92,7 +92,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Image for menu intro"
+                      "help": "Image for the menu intro."
                     },
                     "title": {
                       "type": "string",
@@ -116,7 +116,7 @@
                       "default": "",
                       "inputType": "Text",
                       "validators": [],
-                      "help": "Alternative text for this items image",
+                      "help": "Alternative text for this items image.",
                       "translatable": true
                     },
                     "src": {
@@ -125,7 +125,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Background image for this page"
+                      "help": "Background image for this page."
                     },
                     "locked": {
                       "type": "string",
@@ -133,7 +133,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Background image for this page when it is locked"
+                      "help": "Background image for this page when it is locked."
                     }
                   }
                 },
@@ -168,7 +168,7 @@
                   "type": "object",
                   "required": false,
                   "title": "Page Indicator Graphic",
-                  "help": "Select images to represent user progress for this page on the cover menu",
+                  "help": "Select images to represent user progress for this page on the cover menu.",
                   "properties": {
                     "_isComplete": {
                       "type": "string",
@@ -177,7 +177,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Cover menu image for completed"
+                      "help": "Cover menu image for completed."
                     },
                     "_isVisited": {
                       "type": "string",
@@ -186,7 +186,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Cover menu image for visited"
+                      "help": "Cover menu image for visited."
                     },
                     "_isLocked": {
                       "type": "string",
@@ -195,7 +195,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Cover menu image for locked"
+                      "help": "Cover menu image for locked."
                     },
                     "_default": {
                       "type": "string",
@@ -204,7 +204,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Cover menu image for default"
+                      "help": "Cover menu image for default."
                     },
                     "_isPassed": {
                       "type": "string",
@@ -213,7 +213,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Cover menu image for passed"
+                      "help": "Cover menu image for passed."
                     },
                     "_isFailed": {
                       "type": "string",
@@ -222,7 +222,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Cover menu image for failed"
+                      "help": "Cover menu image for failed."
                     },
                     "_accessibilityEnabled": {
                       "type": "string",
@@ -231,7 +231,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Cover menu image for accesibility enabled"
+                      "help": "Cover menu image for accesibility enabled."
                     }
                   }
                 },
@@ -246,7 +246,7 @@
                       "title": "Menu - Aria Label",
                       "inputType": "Text",
                       "validators": [],
-                      "help": "Menu aria label for this page",
+                      "help": "Menu aria label for this page.",
                       "translatable": true
                     },
                     "menuViewButton": {
@@ -256,7 +256,7 @@
                       "title": "Menu Button - Aria Label",
                       "inputType": "Text",
                       "validators": [],
-                      "help": "Aria label for the menu link for this page",
+                      "help": "Aria label for the menu link for this page.",
                       "translatable": true
                     }
                   }
@@ -268,44 +268,45 @@
                   "properties": {
                     "_isEnabled": {
                       "type":"boolean",
-                      "required":true,
+                      "required": true,
                       "title": "Is Enabled",
-                      "inputType": { "type": "Boolean", "options": [false, true]},
+                      "inputType": "Checkbox",
                       "validators": [],
-                      "help": "Turns audio on and off. Acceptable values are true and false."
+                      "help": "Controls whether audio is enabled or disabled."
                     },
                     "_showControls": {
                       "type":"boolean",
-                      "required":true,
+                      "required": true,
                       "title": "Show Controls",
-                      "inputType": { "type": "Boolean", "options": [false, true]},
-                      "validators": []
+                      "inputType": "Checkbox",
+                      "validators": [],
+                      "help": "Controls whether the play/pause audio button is displayed."
                     },
                     "_autoplay": {
                       "type":"boolean",
-                      "required":false,
-                      "title": "Autoplay Audio",
-                      "inputType": { "type": "Boolean", "options": [false, true]},
+                      "required": false,
+                      "title": "Autoplay Is Enabled",
+                      "inputType": "Checkbox",
                       "validators": [],
-                      "help": "Turns Audio Autoplay on and off. Acceptable values are true and false."
+                      "help": "Controls whether the audio should autoplay."
                     },
                     "_channel": {
                       "type":"number",
-                      "required":true,
+                      "required": true,
                       "default": 0,
                       "title": "Channel Number",
                       "inputType": "Number",
                       "validators": ["required", "number"],
-                      "help": "Channels represent the number of items defined in the course.json settings, by default there are 0, 1 and 2 available (3 _audioItems in the array)"
+                      "help": "Channels represent the number of items defined in the course.json settings, by default there are 0, 1 and 2 available (3 _audioItems in the array)."
                     },
                     "_media": {
                       "type":"object",
-                      "required":true,
+                      "required": true,
                       "title": "Audio Asset",
                       "properties":{
                         "src": {
                           "type":"string",
-                          "required":true,
+                          "required": true,
                           "title": "Src",
                           "inputType": "Asset:audio",
                           "validators": []
