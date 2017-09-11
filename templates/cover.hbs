@@ -24,9 +24,11 @@
 		</div>
 		<div class="menu-item-indicator-container">
 			<div class="menu-item-indicator-container-inner clearfix">
+				{{#if _coverMenuAudio._introItemGraphic.src}}
 				<div class="menu-item-indicator item-intro-indicator" role="button" aria-label="">
 					<a href="#" class="menu-item-indicator-graphic menu-item-intro"><img src="{{_coverMenuAudio._introItemGraphic.src}}"/></a>
 				</div>
+				{{/if}}
 				{{!-- Indicators rendered here --}}
 			</div>
 		</div>

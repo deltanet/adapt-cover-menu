@@ -17,7 +17,6 @@ define(function(require) {
         preRender: function() {
             MenuView.prototype.preRender.call(this);
             this.listenTo(Adapt, "indicator:clicked", this.navigateToCurrentIndex);
-            this.listenTo(Adapt, "menuView:ready", this.setupIndicatorLayout);
         },
 
         postRender: function() {
@@ -34,6 +33,7 @@ define(function(require) {
             }, this));
             this.setupLayout();
             this.listenTo(Adapt, 'pageView:ready menuView:ready', this.setupLegacyFocus);
+            this.listenTo(Adapt, "menuView:ready", this.setupNavigation);
             this.$el.addClass('cover-menu');
         },
 
@@ -113,15 +113,6 @@ define(function(require) {
             Adapt.navigateToElement(Adapt.course.get("_start")._id, "contentObjects");
         },
 
-        configureAccessibilityTabbing: function(index) {
-            if ($('html').hasClass('accessibility')) {
-                this.$(".menu-item-control").addClass("menu-item-control-hide").attr('tabindex', -1);
-                $('.menu-item-indicator').attr('tabindex', -1);
-            } else {
-                this.configureNavigationControls(index);
-            }
-        },
-
         configureNavigationControls: function(index) {
             if(index == 0) {
                 this.$(".menu-item-control-left").addClass("menu-item-control-hide");
@@ -141,7 +132,6 @@ define(function(require) {
             this.configureNavigationControls(currentIndex);
             this.model.set({_coverIndex:currentIndex});
             this.navigateToCurrentIndex(this.model.get("_coverIndex"));
-            Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
         },
 
         navigateRight: function(event) {
@@ -151,7 +141,6 @@ define(function(require) {
             this.configureNavigationControls(currentIndex);
             this.model.set({_coverIndex:currentIndex});
             this.navigateToCurrentIndex(this.model.get("_coverIndex"));
-            Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
         },
 
         revealItems: function(event) {
@@ -204,6 +193,8 @@ define(function(require) {
             if (!this.model.get('_isVisited')) {
                 this.setVisitedIfBlocksComplete();
             }
+
+            $(".menu-item").find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', -1);
         },
 
         postRender: function() {
@@ -354,15 +345,27 @@ define(function(require) {
 
         onItemClicked: function(event) {
             if (event) event.preventDefault();
-            Adapt.trigger("indicator:clicked", this.$el.index() - 1);
+            if(this.model.get("_coverMenuAudio")._introItemGraphic.src) {
+              Adapt.trigger("indicator:clicked", this.$el.index() - 1);
+            } else {
+              Adapt.trigger("indicator:clicked", this.$el.index());
+            }
         },
 
         handleNavigation: function(index) {
+          if(this.model.get("_coverMenuAudio")._introItemGraphic.src) {
             if (this.$el.index() == index + 1) {
                 this.$el.addClass("selected");
             } else {
                 this.$el.removeClass("selected");
             }
+          } else {
+            if (this.$el.index() == index) {
+                this.$el.addClass("selected");
+            } else {
+                this.$el.removeClass("selected");
+            }
+          }
         }
 
     }, {
