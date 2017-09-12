@@ -1,11 +1,9 @@
-define([
-    'core/js/adapt',
-    'core/js/views/menuView',
-    './adapt-cover-extensions'
-], function(Adapt, MenuView, CoverExtensions) {
+define(function(require) {
 
-    // once we return to the menu from a page we do not want to see the intro screen
-    var doNotShowIntro = false;
+    var Backbone = require('backbone');
+    var Adapt = require('coreJS/adapt');
+    var MenuView = require('coreViews/menuView');
+    var CoverAudioExtensions = require("menu/adapt-cover-menu-audio/js/adapt-cover-audio-extensions");
 
     var CoverView = MenuView.extend({
 
@@ -17,66 +15,30 @@ define([
         },
 
         preRender: function() {
-            var nthChild = 0;
-            this.model.getChildren().each(function(item) {
-                if(item.get('_isAvailable')) {
-                    var assessmentArticle = item.getChildren().find(function(article) {
-                        return article.has('_assessment');
-                    });
-
-                    var isAssessment = assessmentArticle !== undefined;
-                    if (isAssessment) {
-                        var scoreAsPercentage = assessmentArticle.get('_isAssessmentComplete') ? assessmentArticle.get('_lastAttemptScoreAsPercent') : null;
-                        var hasScore = (scoreAsPercentage !== null && !isNaN(scoreAsPercentage));
-                        item.set("_assessment", {
-                            isComplete : assessmentArticle.has('_isAssessmentComplete') ? assessmentArticle.get('_isAssessmentComplete') : false,
-                            hasScore: hasScore,
-                            scoreAsPercentage : scoreAsPercentage,
-                            isPassed : assessmentArticle.has('_isPass') ? assessmentArticle.get('_isPass') : false
-                        });
-                    }
-
-                    if (!item.checkLocking) {// fall back to use internal locking logic if Adapt 2.0.9 or earlier
-                        item.set("_isLocked", false);
-                        if (item.get("_lock")) {
-                            var contentObjects = item.get("_lock");
-                            var completeCount = 0;
-                            for( var i = 0; i < contentObjects.length; i++) {
-                                if (Adapt.contentObjects.findWhere({_id:contentObjects[i]}).get("_isComplete")) {
-                                    completeCount++;
-                                }
-                            }
-                            if (completeCount < contentObjects.length) {
-                                item.set("_isLocked", true);
-                            }
-                        }
-                    }
-                }
-            });
-
             MenuView.prototype.preRender.call(this);
             this.listenTo(Adapt, "indicator:clicked", this.navigateToCurrentIndex);
         },
 
         postRender: function() {
             this.listenTo(Adapt, "device:resize", this.setupLayout);
-
             var nthChild = 0;
             this.model.getChildren().each(_.bind(function(item) {
                 if(item.get('_isAvailable')) {
-                    this.renderMenuItems(item, ++nthChild);
+                    nthChild ++;
+                    this.renderMenuItems(item, nthChild);
                     if(Adapt.config.get('_audio') && Adapt.config.get('_audio')._isEnabled) {
                         this.renderAudioItems(item);
                     }
                 }
             }, this));
-
             this.setupLayout();
+            this.listenTo(Adapt, 'pageView:ready menuView:ready', this.setupLegacyFocus);
             this.listenTo(Adapt, "menuView:ready", this.setupNavigation);
+            this.$el.addClass('cover-menu');
         },
 
         renderMenuItems: function(item, nthChild) {
-            item.set({ '_nthChild':nthChild, '_siblingsLength': this.model.getChildren().models.length });
+            item.set({'_nthChild':nthChild, '_siblingsLength':this.model.getChildren().models.length});
 
             this.$('.menu-item-container-inner').append(new CoverItemView({model:item}).$el);
             this.$('.menu-item-indicator-container-inner').append(new CoverItemIndicatorView({model:item}).$el);
@@ -96,32 +58,40 @@ define([
 
             var width = $("#wrapper").width();
             var height = $(window).height() - $(".navigation").height();
-            this.model.set({ width: width });
-            this.$(".menu-intro-screen").css({
-                width: width,
-                height: height
-            });
+            this.model.set({width:width});
+
+            var stage = this.model.get('_stage');
+            var margin = -(stage * width);
+
+           if (Adapt.course.get("_coverMenuAudio") && Adapt.course.get("_coverMenuAudio")._introScreen) {
+                this.$(".menu-intro-screen").css({
+                    width:width,
+                    height:height
+                });
+            } else {
+                this.$(".menu-intro-screen").addClass('display-none');
+            }
+
             this.$('.menu-item-container-inner').css({
-                width: width * this.model.getChildren().length + "px",
-                height: height +"px"
+                width:width * this.model.getChildren().length + "px",
+                height: (height -$(".menu-item-indicator-container").height()) +"px"
             });
 
             this.$('.menu-item-container-inner').css(('margin-' + this.model.get('_marginDir')), margin);
 
             $(".menu").css({
-                height: height,
-                overflow: "hidden"
+                height:height,
+                overflow:"hidden"
             });
-            if(!this.model.get('_showIntro')) {
+            if(this.model.get("_revealedItems")) {
                 this.revealItems();
             }
-            doNotShowIntro = true;
             this.setupNavigation();
         },
 
         setupNavigation: function() {
             if(!this.model.get("_coverIndex")) {
-                this.model.set({ _coverIndex: 0 });
+                this.model.set({_coverIndex:0});
                 this.navigateToCurrentIndex(this.model.get("_coverIndex"));
             } else if(this.model.get("_coverIndex")) {
                 this.navigateToCurrentIndex(this.model.get("_coverIndex"));
@@ -129,12 +99,13 @@ define([
         },
 
         navigateToCurrentIndex: function(index) {
-            this.$('.menu-item-container-inner').velocity({
-                marginLeft:-(index * this.model.get("width")) + "px"
-            });
-            this.model.set({ _coverIndex: index });
-            Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
-            this.configureNavigationControls(index);
+          var movementSize = $("#wrapper").width();
+          var marginDir = {};
+          marginDir['margin-' + this.model.get('_marginDir')] = -(movementSize * index);
+          this.$('.menu-item-container-inner').velocity("stop", true).velocity(marginDir);
+          this.model.set({_coverIndex:index});
+          Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
+          this.configureNavigationControls(index);
         },
 
         navigateToIntro: function(event) {
@@ -143,7 +114,7 @@ define([
         },
 
         configureNavigationControls: function(index) {
-            if(index === 0) {
+            if(index == 0) {
                 this.$(".menu-item-control-left").addClass("menu-item-control-hide");
                 this.$(".menu-item-control-right").removeClass("menu-item-control-hide");
             } else if(index == this.model.getChildren().length - 1) {
@@ -156,48 +127,40 @@ define([
 
         navigateLeft: function(event) {
             if(event) event.preventDefault();
-
             var currentIndex = this.model.get("_coverIndex");
             currentIndex--;
-
             this.configureNavigationControls(currentIndex);
-
-            this.model.set({ _coverIndex: currentIndex });
-
-            this.$('.menu-item-container-inner').velocity({
-                marginLeft:-(this.model.get("_coverIndex") * this.model.get("width")) + "px"
-            });
-
-            Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
+            this.model.set({_coverIndex:currentIndex});
+            this.navigateToCurrentIndex(this.model.get("_coverIndex"));
         },
 
         navigateRight: function(event) {
             if(event) event.preventDefault();
-
             var currentIndex = this.model.get("_coverIndex");
             currentIndex++;
-
             this.configureNavigationControls(currentIndex);
-
-            this.model.set({ _coverIndex: currentIndex });
-
-            this.$('.menu-item-container-inner').velocity({
-                marginLeft:-(this.model.get("_coverIndex") * this.model.get("width")) + "px"
-            });
-
-            Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
+            this.model.set({_coverIndex:currentIndex});
+            this.navigateToCurrentIndex(this.model.get("_coverIndex"));
         },
 
         revealItems: function(event) {
             if(event) event.preventDefault();
-
-            this.$(".menu-intro-screen").velocity({
-                top:"-100%"
-            }, event ? 1000 : 0);
-            this.$(".menu-item-container").velocity({
-                opacity:1
-            }, event ? 1000 : 0);
-
+            if(this.model.get("_revealedItems")) {
+                this.$(".menu-intro-screen").css({
+                    top:"-100%"
+                });
+                this.$(".menu-item-container").css({
+                    opacity:1
+                });
+            } else {
+                this.$(".menu-intro-screen").velocity({
+                    top:"-100%"
+                }, 1000);
+                this.$(".menu-item-container").velocity({
+                    opacity:1
+                }, 1000);
+            }
+            this.model.set({_revealedItems: true})
             Adapt.trigger("cover:revealed");
         },
 
@@ -356,10 +319,8 @@ define([
                 this.setVisitedIfBlocksComplete();
             }
 
-            var isCompletedAssessment = (this.model.get('_assessment') &&
-                this.model.get('_assessment')._isComplete &&
-                !this.model.get('_isComplete'));
-
+            var isCompletedAssessment = (this.model.get('_assessment')
+                    && this.model.get('_assessment')._isComplete && !this.model.get('_isComplete'));
             if (isCompletedAssessment) {
                 this.model.set('_isComplete', true);
             }
@@ -411,14 +372,7 @@ define([
         template:'cover-item-indicator'
     });
 
-    Adapt.once('router:page', function(model) {
-        doNotShowIntro = true;
-    });
-
     Adapt.on('router:menu', function(model) {
-        // on course launch show intro screen if navigating directly to the menu
-        model.set('_showIntro', !doNotShowIntro);
-
         $('#wrapper').append(new CoverView({model:model}).$el);
         new CoverAudioExtensions({model:model});
     });
