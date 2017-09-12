@@ -74,7 +74,7 @@ Graphics are required for the various item states. Locked and accessibility are 
 **Version number:**  2.1.0     
 **Framework versions supported:**  2.0.0     
 **Author / maintainer:** DeltaNet with [contributors](https://github.com/deltanet/adapt-cover-menu-audio/graphs/contributors)     
-**Forked from:** City and Guilds Kineo [cgkineo/adapt-cover-menu](https://github.com/cgkineo/adapt-cover-menu)
+**Forked from:** City and Guilds Kineo [cgkineo/adapt-cover-menu](https://github.com/cgkineo/adapt-cover-menu)  
 **Accessibility support:** yes  
 **RTL support:** yes     
 **Authoring tool support:** yes
