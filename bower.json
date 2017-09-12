@@ -5,12 +5,12 @@
   "homepage": "https://github.com/deltanet/adapt-cover-menu-audio",
   "displayName": "Cover menu audio",
   "menu": "introcoveraudio",
-  "description": "",
+  "description": "A carousel-style menu",
   "main": "js/adapt-cover-audio.js",
   "keywords": [
     "adapt-plugin",
     "adapt-menu"
   ],
-  "license": "GPL-3.0",
+  "license": "GPLv3",
   "targetAttribute": "_coverMenuAudio"
 }
