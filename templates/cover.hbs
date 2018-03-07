@@ -1,17 +1,19 @@
+{{! make the _globals object in course.json available to this template}}
+{{import_globals}}
 <div class="menu-container" role="region" aria-label="{{_globals._menu._introcoveraudio.ariaRegion}}">
 	<div class="menu-intro-screen">
 		<div class="menu-intro-screen-inner">
 			{{#if title}}
 			<div class="menu-title" role="heading">
 				<h1 class="menu-title-inner">
-					{{{title}}}
+					{{{compile title this}}}
 				</h1>
 			</div>
 			{{/if}}
 			{{#if body}}
 			<div class="menu-body">
 				<div class="menu-body-inner">
-					{{{body}}}
+					{{{compile body this}}}
 				</div>
 			</div>
 			{{/if}}

@@ -1,12 +1,14 @@
+{{! make the _globals object in course.json available to this template}}
+{{import_globals}}
 <div class="menu-item-inner" role="menuitem">
 	<div class="menu-item-title" role="heading">
-		<div class="menu-item-title-inner">{{{a11y_text title}}}</div>
+		<div class="menu-item-title-inner">{{{compile_a11y_text title this}}}</div>
 	</div>
 	<div class="menu-item-body">
-		<div class="menu-item-body-inner">{{{a11y_text body}}}</div>
+		<div class="menu-item-body-inner">{{{compile_a11y_text body this}}}</div>
 	</div>
 	<div class="menu-item-duration">
-		<div class="menu-item-duration-inner">{{{a11y_text _coverMenuAudio.durationLabel}}} {{{a11y_text duration}}}</div>
+		<div class="menu-item-duration-inner">{{{compile_a11y_text _coverMenuAudio.durationLabel this}}} {{{compile_a11y_text duration this}}}</div>
 	</div>
 	<button aria-label="{{linkText}} {{#if _isVisited}}{{_globals._accessibility._ariaLabels.visited}}{{/if}}" class="menu-item-route {{#if _isVisited}}visited{{/if}} {{#if _isLocked}}disabled{{/if}} accessible-text-block">
     {{#if _isLocked}}
