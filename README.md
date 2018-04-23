@@ -27,7 +27,9 @@ appears on the menu.
     },
     "_ariaLabels": {
         "menuItemPage": "Page one, tab to View button to enter.",
-        "menuViewButton": "Select here to view page one."
+        "menuViewButton": "Select here to view page one.",
+        "menuLockedText": "Locked",
+        "menuVisitedText": "Select here to revisit page one."
     },
     "_audio": {
         "_isEnabled": true,
@@ -71,7 +73,7 @@ Set the background graphic of the item slide. Images are scaled up/down to fill.
 Graphics are required for the various item states. Locked and accessibility are only required if the menu item has been setup to have that state.
 
 ----------------------------
-**Version number:**  2.1.1     
+**Version number:**  2.1.2     
 **Framework versions supported:**  2.0.0     
 **Author / maintainer:** DeltaNet with [contributors](https://github.com/deltanet/adapt-cover-menu-audio/graphs/contributors)     
 **Forked from:** City and Guilds Kineo [cgkineo/adapt-cover-menu](https://github.com/cgkineo/adapt-cover-menu)  

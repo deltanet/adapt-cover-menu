@@ -258,6 +258,26 @@
                       "validators": [],
                       "help": "Aria label for the menu link for this page.",
                       "translatable": true
+                    },
+                    "menuLockedText": {
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "title": "Menu Button Locked - Aria Label",
+                      "inputType": "Text",
+                      "validators": [],
+                      "help": "Aria label for the menu link if the page is locked.",
+                      "translatable": true
+                    },
+                    "menuVisitedText": {
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "title": "Menu Button Visited - Aria Label",
+                      "inputType": "Text",
+                      "validators": [],
+                      "help": "Aria label for the menu link if the page has been visited.",
+                      "translatable": true
                     }
                   }
                 },

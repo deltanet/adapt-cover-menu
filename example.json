@@ -44,7 +44,9 @@
         },
         "_ariaLabels": {
             "menuItemPage": "Page one, tab to View button to enter.",
-            "menuViewButton": "Select here to view page one."
+            "menuViewButton": "Select here to view page one.",
+            "menuLockedText": "Locked",
+            "menuVisitedText": "Revisit"
         },
         "_audio": {
             "_isEnabled": true,
