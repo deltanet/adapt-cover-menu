@@ -6,8 +6,8 @@
 
 	.menu-intro-screen {
 		position: absolute;
-		top:0;
-		left:0;
+		top: 0;
+		left: 0;
 		z-index: 290;
 		background-color: @secondary-color;
 		display:table;
@@ -17,7 +17,7 @@
 		text-align: center;
 		max-width: 900px;
 		margin: auto;
-		@media all and (max-width:@device-width-large) {
+		@media all and (max-width: @device-width-large) {
 			padding: 10px;
 		}
 	}
@@ -53,36 +53,36 @@
 		width: 44px;
 		height: 80px;
 		line-height: 80px;
-		text-align: center;
+		text-align: center !important;
 		font-size: 24px;
 		margin-top: -40px;
-		background-color:@button-color;
-	    color:@button-text-color;
-	    border:@button-border;
-	    .no-touch & {
-	        &:hover {
-	            background-color:@button-color-hover;
-	            color:@button-text-color-hover;
-	        }
-	    }
+		background-color: @button-color;
+	  color: @button-text-color;
+	  border: @button-border;
+	  .no-touch & {
+	      &:hover {
+	          background-color: @button-color-hover;
+	          color: @button-text-color-hover;
+	      }
+	  }
 		&.menu-item-control-left {
-			left:0px;
+			left: 0px;
 			.dir-rtl & {
-				left:inherit;
-	      right:0px;
+				left: inherit;
+	      right: 0px;
 	    }
 		}
 		&.menu-item-control-right {
-			right:0px;
+			right: 0px;
 			.dir-rtl & {
-				right:inherit;
-	      left:0px;
+				right: inherit;
+	      left: 0px;
 	    }
 		}
 		&.menu-item-control-hide {
-			display:none;
+			display: none;
 		}
-		@media all and (max-width:@device-width-small) {
+		@media all and (max-width: @device-width-small) {
 			display: none;
 		}
 		.transition-all-colors;
@@ -93,11 +93,11 @@
 	.menu-item {
 		background-size: cover;
 		background-position: center;
-		float:left;
+		float: left;
 		.dir-rtl & {
-			float:right;
+			float: right;
 		}
-		@media all and (max-width:@device-width-small) {
+		@media all and (max-width: @device-width-small) {
 			overflow: auto;
 			margin: auto;
 			-webkit-overflow-scrolling: touch;
@@ -114,14 +114,14 @@
 		margin: auto;
 		padding: 10px;
 		background-color: rgba(0,0,0,0.7) !important;
-	    .no-opacity & {
-	        background-image:@transparency-fallback-png !important;
-	    }
+	  .no-opacity & {
+	      background-image: @transparency-fallback-png !important;
+	  }
 		@media all and (max-width: @device-width-small) {
 			margin: auto;
-        }
-        //  Only show for desktop and tablet
-    	@media all and (min-width: @device-width-medium) {
+    }
+    //  Only show for desktop and tablet
+  	@media all and (min-width: @device-width-medium) {
 	  		position: relative;
 	  		top: 50%;
 	  		left: 50%;
@@ -133,14 +133,14 @@
 		}
 		@media all and (max-width: @device-width-medium) {
 			margin-top: 50px;
-        }
+    }
 	}
 
 	.audio-inner {
-		display:inline;
+		display: inline;
     float: right;
 		.dir-rtl & {
-			float:left;
+			float: left;
 		}
 	}
 
@@ -167,25 +167,25 @@
 		font-weight: @menu-title-font-weight;
 		line-height: @menu-title-line-height;
 
-		@media all and (min-width:@device-width-medium) {
+		@media all and (min-width: @device-width-medium) {
 			width: 70%;
 			margin: 0 auto;
 		}
 	}
 
 	.menu-item-title-inner {
-		color:@menu-secondary-font-color;
+		color: @menu-secondary-font-color;
 		padding: 10px 0px 10px 0px;
 		background-color: @title-background-color;
 	}
 
 	.menu-item-body-inner {
-		color:@menu-secondary-font-color;
+		color: @menu-secondary-font-color;
 		margin: 20px 10px;
 	}
 
 	.menu-item-assement-details {
-		color:@menu-secondary-font-color;
+		color: @menu-secondary-font-color;
 		border: 1px solid white;
 		margin-top: 20px;
 	}
@@ -196,7 +196,7 @@
 
 	.menu-item-duration {
 		display: block;
-		color:@menu-secondary-font-color;
+		color: @menu-secondary-font-color;
 		padding-bottom: 20px;
 	}
 
@@ -214,14 +214,13 @@
 			bottom: 0;
 			left:0;
 			background-color: black;
-			max-width: 400px;
-			margin:auto;
+			margin: auto;
 		}
 	}
 
 	.menu-item-indicator-container-inner {
 		display: inline-block;
-		margin:auto;
+		margin: auto;
 	}
 
 	// PLP
@@ -232,35 +231,34 @@
 	// Menu Item Indicator
 	// ===================
 	.menu-item-indicator {
-		float:left;
+		float: left;
 		.dir-rtl & {
-			float:right;
+			float: right;
 		}
 		&.selected {
 			.menu-item-indicator-graphic {
-				opacity:1;
+				opacity: 1;
 			}
 		}
 		&.item-intro-indicator {
 			.menu-item-indicator-graphic {
-				opacity:0.3;
+				opacity: 0.3;
 			}
 		}
-
 	}
 
 	.menu-item-indicator-graphic {
 		position: relative;
-		display:block;
+		display: block;
 		text-align: center;
 		text-decoration: none;
-		opacity:0.3;
+		opacity: 0.3;
 		transition: opacity 0.4s;
 		.no-touch &:hover {
-			opacity:1;
+			opacity: 1;
 		}
 		&:focus {
-			opacity:1;
+			opacity: 1;
 		}
 		img {
 			display: block;
@@ -270,7 +268,6 @@
 				max-height: @menu-idicator-max-height-mobile;
 			}
 		}
-
 	}
 
 	.menu-item-assement-details {
@@ -283,7 +280,7 @@
 	}
 
 	.menu-item-spacer {
-		height:10px;
+		height: 10px;
 	}
 
 	// Letterbox sized viewports
@@ -291,7 +288,7 @@
 	@media (max-height: 440px) and (max-width: @device-width-large) {
 
 		.menu-item-inner {
-			margin:20px auto;
+			margin: 20px auto;
 		}
 
 		.menu-item-indicator-graphic {
@@ -300,14 +297,14 @@
 				max-height: 50px;
 			}
 			span {
-				display:none;
+				display: none;
 			}
 		}
 
 		.menu-item-indicator-container {
 			bottom: 0;
-			left:0;
-			margin-left: 0!important;
+			left: 0;
+			margin-left: 0 !important;
 			background-color: black;
 		}
 
@@ -316,7 +313,7 @@
 		}
 
 		.menu-item-spacer {
-			height:100px;
+			height: 100px;
 		}
 
 	}
