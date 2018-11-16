@@ -26,7 +26,7 @@ define(function(require) {
                 if(item.get('_isAvailable')) {
                     nthChild ++;
                     this.renderMenuItems(item, nthChild);
-                    if(Adapt.config.get('_audio') && Adapt.config.get('_audio')._isEnabled) {
+                    if(Adapt.audio) {
                         this.renderAudioItems(item);
                     }
                 }
