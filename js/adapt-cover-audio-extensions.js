@@ -1,8 +1,8 @@
 define(function(require) {
 
     var Backbone = require('backbone');
-    var Adapt = require('coreJS/adapt');
-    var MenuView = require('coreViews/menuView');
+    var Adapt = require('core/js/adapt');
+    var MenuView = require('core/js/views/menuView');
 
     /*use this view to add extra funcitonality to Cover*/
 
