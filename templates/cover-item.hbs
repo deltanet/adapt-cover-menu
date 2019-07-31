@@ -10,7 +10,7 @@
 	<div class="menu-item-duration">
 		<div class="menu-item-duration-inner">{{{compile _coverMenuAudio.durationLabel this}}} {{{compile duration this}}}</div>
 	</div>
-	<button aria-label="{{#if _isVisited}}{{_coverMenuAudio._ariaLabels.menuVisitedText}}{{else}}{{#if _isLocked}}{{_coverMenuAudio._ariaLabels.menuLockedText}}{{else}}{{linkText}}{{/if}}{{/if}}" class="menu-item-route {{#if _isVisited}}visited{{/if}} {{#if _isLocked}}disabled{{/if}} accessible-text-block">
+	<button aria-label="{{#if _isVisited}}{{_coverMenuAudio._ariaLabels.menuVisitedText}}{{else}}{{#if _isLocked}}{{_coverMenuAudio._ariaLabels.menuLockedText}}{{else}}{{linkText}}{{/if}}{{/if}}" class="menu-item-route {{#if _isVisited}}visited{{/if}} {{#if _isLocked}}disabled{{/if}}">
   {{#if _isLocked}}
   {{{_coverMenuAudio.linkLockedText}}}
     {{else}}
