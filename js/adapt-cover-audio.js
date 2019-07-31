@@ -1,9 +1,8 @@
-define(function(require) {
-
-    var Backbone = require('backbone');
-    var Adapt = require('core/js/adapt');
-    var MenuView = require('core/js/views/menuView');
-    var CoverAudioExtensions = require("menu/adapt-cover-menu-audio/js/adapt-cover-audio-extensions");
+define([
+    'core/js/adapt',
+    'core/js/views/menuView',
+    './adapt-cover-audio-extensions',
+], function(Adapt, MenuView, CoverAudioExtensions) {
 
     var CoverView = MenuView.extend({
 
