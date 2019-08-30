@@ -1,9 +1,8 @@
-define(function(require) {
-
-    var Backbone = require('backbone');
-    var Adapt = require('coreJS/adapt');
-    var MenuView = require('coreViews/menuView');
-    var CoverAudioExtensions = require("menu/adapt-cover-menu-audio/js/adapt-cover-audio-extensions");
+define([
+    'core/js/adapt',
+    'core/js/views/menuView',
+    './adapt-cover-audio-extensions',
+], function(Adapt, MenuView, CoverAudioExtensions) {
 
     var CoverView = MenuView.extend({
 
@@ -194,7 +193,7 @@ define(function(require) {
                 this.setVisitedIfBlocksComplete();
             }
 
-            $(".menu-item").find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', -1);
+            //$(".menu-item").find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', -1);
         },
 
         postRender: function() {
