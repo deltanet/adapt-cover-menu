@@ -5,17 +5,7 @@
     "menuEnd": "You have reached the end of the menu."
 }
 
-// in contentObjects.json, on each object to appear on the menu. This replaces the "_graphic" data object
-//
-// _type = menu
-"_coverMenuAudio":{
-    "_introItemGraphic": {
-        "alt": "",
-        "src": "course/en/images/menu_returnArrow.png",
-        "title": ""
-    }
-}
-// _type = page
+// in contentObjects.json
 {
     "_id":"co-05",
     "_parentId":"course",
@@ -25,14 +15,21 @@
     "displayTitle":"Welcome to Adapt Learning",
     "body":"This page contains a working Adapt page with all core bundled components and plugins working.",
     "_coverMenuAudio":{
-        "linkLockedText": "Locked",
-        "linkVisitedText": "Revisit",
-        "durationLabel": "Duration:",
+        "_introScreen": false,
+        "linkStartText": "Start",
+        "_introItemGraphic": {
+            "alt": "",
+            "src": "course/en/images/menu_returnArrow.png",
+            "title": ""
+        },
         "_backgroundGraphic": {
             "alt": "",
             "src": "",
             "locked": ""
         },
+        "linkLockedText": "Locked",
+        "linkVisitedText": "Revisit",
+        "durationLabel": "Duration:",
         "_indicatorGraphic": {
             "_isComplete": "course/en/images/menu_btn1_complete.png",
             "_isVisited": "course/en/images/menu_btn1_started.png",
@@ -59,13 +56,5 @@
         }
     },
     "linkText":"Start",
-    "duration":"2 mins",
-    "_pageLevelProgress": {
-        "_isEnabled": true
-    }
-}
-
-// set the intro screen on/off in all menus in the course.json
-"_coverMenuAudio":{
-    "_introScreen": true
+    "duration":"2 mins"
 }

@@ -21,7 +21,7 @@ define([
 
         /*handles event when menu intro start button is clicked and the menu items are revealed*/
         itemsRevealed: function() {
-            //console.log("CoverExtensionsView::itemsRevealed");
+
         },
 
         /*handles navigation left/right event and navigate to current index*/
@@ -50,16 +50,6 @@ define([
             $currentItemInView.find(".menu-item-duration-inner").a11y_on(true);
 
             $currentItemInView.find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', 0);
-
-            if (!Adapt.audio) return;
-
-            if (model.get('_coverMenuAudio') && model.get('_coverMenuAudio')._audio && model.get('_coverMenuAudio')._audio._isEnabled && model.get('_coverMenuAudio')._audio._autoplay) {
-                thisAudio = model.get('_coverMenuAudio')._audio;
-                if(Adapt.audio.audioClip[thisAudio._channel].status == 1) {
-                  Adapt.trigger('audio:playAudio', thisAudio._media.src, model.get('_id'), thisAudio._channel);
-                }
-            }
-
         }
 
     });

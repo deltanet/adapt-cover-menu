@@ -39,13 +39,16 @@
   },
   "properties": {
     "pluginLocations": {
-      "type":"object",
-      "required":true,
-      "properties":{
+      "type": "object",
+      "required": true,
+      "properties": {
         "config": {
-          "type":"object"
+          "type": "object"
         },
         "course": {
+          "type": "object"
+        },
+        "contentobject": {
           "type": "object",
           "properties": {
             "_coverMenuAudio": {
@@ -55,27 +58,24 @@
                 "_introScreen": {
                   "type":"boolean",
                   "required": false,
-                  "title": "Menu Intro Screen",
+                  "title": "Intro Screen Is Enabled",
                   "inputType": "Checkbox",
                   "validators": [],
                   "help": "Turns the menu intro screen on and off."
-                }
-              }
-            }
-          }
-        },
-        "contentobject": {
-          "type": "object",
-          "properties": {
-            "_coverMenuAudio": {
-              "type": "object",
-              "required": false,
-              "properties": {
+                },
+                "linkStartText": {
+                  "type": "string",
+                  "required": false,
+                  "default": "Start",
+                  "title": "Intro Start button text",
+                  "inputType": "Text",
+                  "validators": [],
+                  "translatable": true
+                },
                 "_introItemGraphic": {
                   "type": "object",
                   "required": false,
-                  "title": "Intro Menu Item Graphic",
-                  "help": "This is only required for menus.",
+                  "title": "Intro Indicator Graphic",
                   "properties": {
                     "alt": {
                       "type": "string",
@@ -108,7 +108,7 @@
                 "_backgroundGraphic": {
                   "type": "object",
                   "required": false,
-                  "title": "Page Background Graphic",
+                  "title": "Intro/Page Background Graphic",
                   "properties": {
                     "alt": {
                       "type": "string",
@@ -116,7 +116,7 @@
                       "default": "",
                       "inputType": "Text",
                       "validators": [],
-                      "help": "Alternative text for this items image.",
+                      "help": "Alternative text for this image.",
                       "translatable": true
                     },
                     "src": {
@@ -125,7 +125,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Background image for this page."
+                      "help": "Background image for this page or intro screen."
                     },
                     "locked": {
                       "type": "string",
@@ -133,7 +133,7 @@
                       "default": "",
                       "inputType": "Asset:image",
                       "validators": [],
-                      "help": "Background image for this page when it is locked."
+                      "help": "Background image for this page when it is locked. This is not required for the intro screen."
                     }
                   }
                 },
