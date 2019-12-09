@@ -10,7 +10,7 @@ define([
             "click .menu-reveal-items":"revealItems",
             "click .menu-item-control-left":"navigateLeft",
             "click .menu-item-control-right":"navigateRight",
-            "click .menu-item-intro": "navigateToIntro"
+            "click .menu-item-intro": "hideItems"
         },
 
         preRender: function() {
@@ -25,15 +25,19 @@ define([
                 if(item.get('_isAvailable')) {
                     nthChild ++;
                     this.renderMenuItems(item, nthChild);
-                    if(Adapt.audio) {
-                        this.renderAudioItems(item);
-                    }
                 }
             }, this));
+            this.renderAudio();
             this.setupLayout();
             this.listenTo(Adapt, 'pageView:ready menuView:ready', this.setupLegacyFocus);
             this.listenTo(Adapt, "menuView:ready", this.setupNavigation);
             this.$el.addClass('cover-menu');
+
+            if (this.model.get("_coverMenuAudio")._introScreen && !this.model.get("_revealedItems")) {
+              this.$(".menu-item-container").velocity({
+                opacity:0
+              }, 1000);
+            }
         },
 
         renderMenuItems: function(item, nthChild) {
@@ -43,10 +47,8 @@ define([
             this.$('.menu-item-indicator-container-inner').append(new CoverItemIndicatorView({model:item}).$el);
         },
 
-        renderAudioItems: function(item) {
-            if(item.get('_audio') && item.get('_audio')._isEnabled) {
-                this.$('.menu-item-'+item.get("_id")).prepend(new CoverItemAudioView({model:item}).$el);
-            }
+        renderAudio: function() {
+            this.$('.menu-container').prepend(new CoverAudioView({model:this.model}).$el);
         },
 
         setupLayout: function() {
@@ -62,7 +64,7 @@ define([
             var stage = this.model.get('_stage');
             var margin = -(stage * width);
 
-           if (Adapt.course.get("_coverMenuAudio") && Adapt.course.get("_coverMenuAudio")._introScreen) {
+           if (this.model.get("_coverMenuAudio")._introScreen) {
                 this.$(".menu-intro-screen").css({
                     width:width,
                     height:height
@@ -82,6 +84,7 @@ define([
                 height:height,
                 overflow:"hidden"
             });
+
             if(this.model.get("_revealedItems")) {
                 this.revealItems();
             }
@@ -105,11 +108,6 @@ define([
           this.model.set({_coverIndex:index});
           Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
           this.configureNavigationControls(index);
-        },
-
-        navigateToIntro: function(event) {
-            if(event) event.preventDefault();
-            Adapt.navigateToElement(Adapt.course.get("_start")._id, "contentObjects");
         },
 
         configureNavigationControls: function(index) {
@@ -159,8 +157,23 @@ define([
                     opacity:1
                 }, 1000);
             }
-            this.model.set({_revealedItems: true})
+            this.model.set({_revealedItems: true});
             Adapt.trigger("cover:revealed");
+        },
+
+        hideItems: function(event) {
+            if(event) event.preventDefault();
+
+            this.$(".menu-intro-screen").velocity({
+                top:"0"
+            }, 1000);
+
+            this.$(".menu-item-container").velocity({
+                opacity:0
+            }, 1000);
+
+            this.model.set({_revealedItems: false});
+            Adapt.trigger("cover:hidden");
         },
 
         coverItemIndicatorClicked: function(index) {
@@ -192,8 +205,6 @@ define([
             if (!this.model.get('_isVisited')) {
                 this.setVisitedIfBlocksComplete();
             }
-
-            //$(".menu-item").find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', -1);
         },
 
         postRender: function() {
@@ -239,7 +250,7 @@ define([
         template:'cover-item'
     });
 
-    var CoverItemAudioView = MenuView.extend({
+    var CoverAudioView = MenuView.extend({
 
         events:{
             'click .audio-toggle': 'toggleAudio'
@@ -247,28 +258,42 @@ define([
 
         className: "audio-controls",
 
-        preRender: function() {
-            this.listenTo(Adapt, 'audio:updateAudioStatus', this.updateToggle);
-        },
-
         postRender: function() {
-            this.audioChannel = this.model.get('_coverMenuAudio')._audio._channel;
+            this.listenTo(Adapt, {
+                "cover:navigate": this.playItemAudio,
+                "cover:revealed": this.autoplayAudio,
+                "cover:hidden": this.autoplayAudio,
+                "audio:configured": this.autoplayAudio,
+                "audio:updateAudioStatus": this.updateToggle
+            });
+
             this.elementId = this.model.get("_id");
-            // Hide controls
-            if(this.model.get('_coverMenuAudio')._audio._showControls==false){
-                this.$('.audio-toggle').addClass('hidden');
-            }
-            try {
-                this.audioFile = this.model.get("_coverMenuAudio")._audio._media.src;
-            } catch(e) {
-                console.log('An error has occured loading audio');
-            }
-            // Hide icon if audio is turned off
-            if(Adapt.audio.audioClip[this.audioChannel].status==0){
-                this.$('.audio-toggle').addClass('hidden');
-            }
-            // Set clip ID
+            this.audioModel = this.model.get('_coverMenuAudio')._audio;
+            this.audioChannel = this.audioModel._channel;
+            this.audioFile = this.audioModel._media.src;
             Adapt.audio.audioClip[this.audioChannel].newID = this.elementId;
+            Adapt.audio.audioClip[this.audioChannel].onscreenID = "";
+
+            // Autoplay
+            if (Adapt.audio.autoPlayGlobal || this.audioModel._autoplay){
+                this.canAutoplay = true;
+            } else {
+                this.canAutoplay = false;
+            }
+
+            this.$('.audio-toggle').addClass(Adapt.audio.iconPlay);
+
+            // Hide controls
+            if (this.audioModel._showControls==false || Adapt.audio.audioClip[this.audioChannel].status==0){
+                this.$('.audio-inner button').hide();
+            }
+
+            // Set listener for when clip ends
+            $(Adapt.audio.audioClip[this.audioChannel]).on('ended', _.bind(this.onAudioEnded, this));
+
+            if (!Adapt.audio.isConfigured) return;
+
+            this.autoplayAudio();
         },
 
         onAudioEnded: function() {
@@ -278,19 +303,102 @@ define([
         toggleAudio: function(event) {
             if (event) event.preventDefault();
 
+            Adapt.audio.audioClip[this.audioChannel].onscreenID = "";
             if ($(event.currentTarget).hasClass('playing')) {
-                Adapt.trigger('audio:pauseAudio', this.audioChannel);
+              this.pauseAudio();
             } else {
-                Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
+              this.playAudio();
             }
         },
 
-        updateToggle: function(){
-            if(Adapt.audio.audioStatus == 1 && this.model.get('_coverMenuAudio')._audio._showControls==true){
-                this.$('.audio-toggle').removeClass('hidden');
-            } else {
-                this.$('.audio-toggle').addClass('hidden');
+        autoplayAudio: function() {
+          if (this.model.get("_revealedItems")) {
+            this.playItemAudio(this.model.get("_coverIndex"));
+          } else {
+            this.audioChannel = this.model.get("_coverMenuAudio")._audio._channel;
+            this.audioFile = this.model.get("_coverMenuAudio")._audio._media.src;
+
+            if (this.canAutoplay && Adapt.audio.audioClip[this.audioChannel].status == 1) {
+              Adapt.audio.audioClip[this.audioChannel].onscreenID = "";
+              Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
             }
+          }
+        },
+
+        playAudio: function() {
+          // iOS requires direct user interaction on a button to enable autoplay
+          // Re-use code from main adapt-audio.js playAudio() function
+
+          Adapt.trigger("media:stop");
+
+          // Stop audio
+          Adapt.audio.audioClip[this.audioChannel].pause();
+
+          // Update previous player if there is one
+          if (Adapt.audio.audioClip[this.audioChannel].playingID) {
+            $('#'+Adapt.audio.audioClip[this.audioChannel].playingID).removeClass(Adapt.audio.iconPause);
+            $('#'+Adapt.audio.audioClip[this.audioChannel].playingID).addClass(Adapt.audio.iconPlay);
+            $('#'+Adapt.audio.audioClip[this.audioChannel].playingID).removeClass('playing');
+          }
+
+          this.$('.audio-toggle').removeClass(Adapt.audio.iconPlay);
+          this.$('.audio-toggle').addClass(Adapt.audio.iconPause);
+          this.$('.audio-toggle').addClass('playing');
+
+          Adapt.audio.audioClip[this.audioChannel].prevID = Adapt.audio.audioClip[this.audioChannel].playingID;
+          Adapt.audio.audioClip[this.audioChannel].src = this.audioFile;
+          Adapt.audio.audioClip[this.audioChannel].newID = this.elementId;
+
+          if (Adapt.audio.pauseStopAction == "pause") {
+            Adapt.audio.audioClip[this.audioChannel].play(this.pausedTime);
+            this.$('.audio-toggle').attr('aria-label', $.a11y_normalize(Adapt.audio.pauseAriaLabel));
+          } else {
+            Adapt.audio.audioClip[this.audioChannel].play();
+            this.$('.audio-toggle').attr('aria-label', $.a11y_normalize(Adapt.audio.stopAriaLabel));
+          }
+
+          Adapt.audio.audioClip[this.audioChannel].onscreenID = this.elementId;
+          Adapt.audio.audioClip[this.audioChannel].playingID = Adapt.audio.audioClip[this.audioChannel].newID;
+          Adapt.audio.audioClip[this.audioChannel].isPlaying = true;
+        },
+
+        pauseAudio: function () {
+          if(Adapt.audio.pauseStopAction == "pause") {
+            this.pausedTime = Adapt.audio.audioClip[this.audioChannel].currentTime;
+            Adapt.audio.audioClip[this.audioChannel].pause();
+            this.$('.audio-toggle').removeClass(Adapt.audio.iconPause);
+            this.$('.audio-toggle').addClass(Adapt.audio.iconPlay);
+            this.$('.audio-toggle').removeClass('playing');
+          } else {
+            Adapt.trigger('audio:pauseAudio', this.audioChannel);
+          }
+          this.$('.audio-toggle').attr('aria-label', $.a11y_normalize(Adapt.audio.playAriaLabel));
+        },
+
+        updateToggle: function(){
+            if (Adapt.audio.audioClip[this.audioChannel].status == 1 && this.model.get('_coverMenuAudio')._audio._showControls == true) {
+                this.$('.audio-inner button').show();
+            } else {
+                this.$('.audio-inner button').hide();
+            }
+        },
+
+        playItemAudio: function(index) {
+          this.currentItemInView(this.model.getChildren().models[index]);
+        },
+
+        currentItemInView: function(model) {
+          if (!this.model.get("_revealedItems")) return;
+
+          this.audioChannel = model.get("_coverMenuAudio")._audio._channel;
+          this.audioFile = model.get("_coverMenuAudio")._audio._media.src;
+
+          if (model.get('_coverMenuAudio')._audio._isEnabled && model.get('_coverMenuAudio')._audio._autoplay) {
+            if (Adapt.audio.audioClip[this.audioChannel].status == 1) {
+              Adapt.audio.audioClip[this.audioChannel].onscreenID = "";
+              Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
+            }
+          }
         }
 
     }, {
@@ -339,12 +447,13 @@ define([
             this.$('.menu-item-indicator-graphic').imageready(_.bind(function() {
                 Adapt.trigger("indicator:postRender");
                 this.setReadyStatus();
+                Adapt.trigger("device:resize");
             }, this));
         },
 
         onItemClicked: function(event) {
             if (event) event.preventDefault();
-            if(this.model.get("_coverMenuAudio")._introItemGraphic.src) {
+            if(this.model.getParent().get("_coverMenuAudio")._introItemGraphic.src) {
               Adapt.trigger("indicator:clicked", this.$el.index() - 1);
             } else {
               Adapt.trigger("indicator:clicked", this.$el.index());
@@ -352,7 +461,7 @@ define([
         },
 
         handleNavigation: function(index) {
-          if(this.model.get("_coverMenuAudio")._introItemGraphic.src) {
+          if(this.model.getParent().get("_coverMenuAudio")._introItemGraphic.src) {
             if (this.$el.index() == index + 1) {
                 this.$el.addClass("selected");
             } else {

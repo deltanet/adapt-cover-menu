@@ -1,12 +1,12 @@
 {{! make the _globals object in course.json available to this template}}
 {{import_globals}}
 <div class="menu-container" role="region" aria-label="{{_globals._menu._coverMenuAudio.ariaRegion}}">
-	<div class="menu-intro-screen">
+	<div class="menu-intro-screen" style="background-image: url({{_coverMenuAudio._backgroundGraphic.src}});">
 		<div class="menu-intro-screen-inner">
-			{{#if title}}
+			{{#if displayTitle}}
 			<div class="menu-title" role="heading">
 				<h1 class="menu-title-inner">
-					{{{compile title this}}}
+					{{{compile displayTitle this}}}
 				</h1>
 			</div>
 			{{/if}}
@@ -17,7 +17,14 @@
 				</div>
 			</div>
 			{{/if}}
-			<button class="menu-reveal-items button">Start</button>
+			{{#if body}}
+			<div class="menu-instruction">
+				<div class="menu-instruction-inner">
+					{{{compile instruction this}}}
+				</div>
+			</div>
+			{{/if}}
+			<button class="menu-reveal-items">{{{compile _coverMenuAudio.linkStartText this}}}</button>
 		</div>
 	</div>
 	<div class="menu-item-container" role="menu">
@@ -28,7 +35,9 @@
 			<div class="menu-item-indicator-container-inner clearfix">
 				{{#if _coverMenuAudio._introItemGraphic.src}}
 				<div class="menu-item-indicator item-intro-indicator" aria-label="">
-					<a href="#" class="menu-item-indicator-graphic menu-item-intro"><img src="{{_coverMenuAudio._introItemGraphic.src}}"/></a>
+					<button class="base menu-item-indicator-graphic menu-item-intro">
+						<img src="{{_coverMenuAudio._introItemGraphic.src}}"/>
+					</button>
 				</div>
 				{{/if}}
 				{{!-- Indicators rendered here --}}
