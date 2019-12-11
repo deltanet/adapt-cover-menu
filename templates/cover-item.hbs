@@ -1,15 +1,32 @@
 {{! make the _globals object in course.json available to this template}}
 {{import_globals}}
 <div class="menu-item-inner" role="menuitem">
+	{{#if displayTitle}}
 	<div class="menu-item-title" role="heading">
-		<div class="menu-item-title-inner">{{{compile title this}}}</div>
+		<div class="menu-item-title-inner">
+			{{{compile displayTitle this}}}
+		</div>
 	</div>
+	{{/if}}
+	{{#if body}}
 	<div class="menu-item-body">
-		<div class="menu-item-body-inner">{{{compile body this}}}</div>
+		<div class="menu-item-body-inner">
+			{{{compile body this}}}
+		</div>
 	</div>
+	{{/if}}
+	{{#if instruction}}
+	<div class="menu-item-instruction">
+		<div class="menu-item-instruction-inner">
+			{{{compile instruction this}}}
+		</div>
+	</div>
+	{{/if}}
+	{{#if duration}}
 	<div class="menu-item-duration">
 		<div class="menu-item-duration-inner">{{{compile _coverMenuAudio.durationLabel this}}} {{{compile duration this}}}</div>
 	</div>
+	{{/if}}
 	<button aria-label="{{#if _isVisited}}{{_coverMenuAudio._ariaLabels.menuVisitedText}}{{else}}{{#if _isLocked}}{{_coverMenuAudio._ariaLabels.menuLockedText}}{{else}}{{linkText}}{{/if}}{{/if}}" class="menu-item-route {{#if _isVisited}}visited{{/if}} {{#if _isLocked}}disabled{{/if}}">
   {{#if _isLocked}}
   {{{_coverMenuAudio.linkLockedText}}}

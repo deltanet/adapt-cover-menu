@@ -73,7 +73,7 @@ Set the background graphic of the item slide. Images are scaled up/down to fill.
 Graphics are required for the various item states. Locked and accessibility are only required if the menu item has been setup to have that state.
 
 ----------------------------
-**Version number:**  4.0.0     
+**Version number:**  4.1.0     
 **Framework versions supported:**  4+     
 **Author / maintainer:** DeltaNet with [contributors](https://github.com/deltanet/adapt-cover-menu-audio/graphs/contributors)     
 **Forked from:** City and Guilds Kineo [cgkineo/adapt-cover-menu](https://github.com/cgkineo/adapt-cover-menu)  
