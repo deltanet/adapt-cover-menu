@@ -24,18 +24,18 @@
 				</div>
 			</div>
 			{{/if}}
-			<button class="menu-reveal-items">{{{compile _coverMenuAudio.linkStartText this}}}</button>
+			<button class="btn-text menu-reveal-items">{{{compile _coverMenuAudio.linkStartText this}}}</button>
 		</div>
 	</div>
 	<div class="menu-item-container" role="menu">
-		<div class="menu-item-container-inner clearfix">
+		<div class="menu-item-container-inner u-clearfix">
 		{{!-- Items rendered here --}}
 		</div>
 		<div class="menu-item-indicator-container">
-			<div class="menu-item-indicator-container-inner clearfix">
+			<div class="menu-item-indicator-container-inner u-clearfix">
 				{{#if _coverMenuAudio._introItemGraphic.src}}
 				<div class="menu-item-indicator item-intro-indicator" aria-label="">
-					<button class="base menu-item-indicator-graphic menu-item-intro">
+					<button class="btn-text base menu-item-indicator-graphic menu-item-intro">
 						<img src="{{_coverMenuAudio._introItemGraphic.src}}"/>
 					</button>
 				</div>
@@ -43,7 +43,7 @@
 				{{!-- Indicators rendered here --}}
 			</div>
 		</div>
-		<button class="base menu-item-control menu-item-control-left icon-controls-left icon" aria-label="{{_globals._accessibility._ariaLabels.previous}}"></button>
-		<button class="base menu-item-control menu-item-control-right icon-controls-right icon" aria-label="{{_globals._accessibility._ariaLabels.next}}"></button>
+		<button class="btn-text base menu-item-control menu-item-control-left icon-controls-left icon" aria-label="{{_globals._accessibility._ariaLabels.previous}}"></button>
+		<button class="btn-text base menu-item-control menu-item-control-right icon-controls-right icon" aria-label="{{_globals._accessibility._ariaLabels.next}}"></button>
 	</div>
 </div>

@@ -70,7 +70,7 @@ define([
                     height:height
                 });
             } else {
-                this.$(".menu-intro-screen").addClass('display-none');
+                this.$(".menu-intro-screen").addClass('u-display-none');
             }
 
             this.$('.menu-item-container-inner').css({
@@ -221,7 +221,7 @@ define([
 
         setupItemLayout: function() {
             var width = $("#wrapper").width();
-            var height = $(window).height() - $(".navigation").height();
+            var height = $(window).height() - $(".nav").height();
             $(".menu-item").css({
                 width:width + "px",
                 height:height + "px"
@@ -486,7 +486,7 @@ define([
     });
 
     Adapt.on('menuView:postRender', function(view) {
-        $('.navigation-back-button').addClass('display-none');
+        $('.navigation-back-button').addClass('u-display-none');
     });
 
 });

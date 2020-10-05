@@ -37,17 +37,18 @@ define([
             $currentItemInView.addClass("inview");
 
             //AA
+            const menuItem = $(".menu-item");
             $(".menu-item").find(".menu-item-route").attr('tabindex', -1);
-            $(".menu-item").find(".menu-item-title-inner").a11y_on(false);
-            $(".menu-item").find(".menu-item-body-inner").a11y_on(false);
-            $(".menu-item").find(".menu-item-duration-inner").a11y_on(false);
+            Adapt.a11y.toggleAccessible(menuItem.filter('.menu-item-title-inner'), false);
+            Adapt.a11y.toggleAccessible(menuItem.filter('.menu-item-body-inner'), false);
+            Adapt.a11y.toggleAccessible(menuItem.filter('.menu-item-duration-inner'), false);
 
             $(".menu-item").find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', -1);
 
             $currentItemInView.find(".menu-item-route").attr('tabindex', 0);
-            $currentItemInView.find(".menu-item-title-inner").a11y_on(true);
-            $currentItemInView.find(".menu-item-body-inner").a11y_on(true);
-            $currentItemInView.find(".menu-item-duration-inner").a11y_on(true);
+            Adapt.a11y.toggleAccessible($currentItemInView.filter('.menu-item-title-inner'), true);
+            Adapt.a11y.toggleAccessible($currentItemInView.filter('.menu-item-body-inner'), true);
+            Adapt.a11y.toggleAccessible($currentItemInView.filter('.menu-item-duration-inner'), true);
 
             $currentItemInView.find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', 0);
         }
