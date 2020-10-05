@@ -217,7 +217,7 @@ define([
       return [
         'menu-item',
         'menu-item-' + this.model.get('_id'),
-        this.model.get('_isLocked') ? 'locked' : '',
+        this.model.get('_isLocked') ? 'is-locked' : '',
         'nth-child-' + this.model.get('_nthChild'),
         this.model.get('_nthChild') % 2 === 0 ? 'nth-child-even' : 'nth-child-odd'
       ].join(' ');
