@@ -9,8 +9,8 @@ define([
     initialize: function() {
       this.collection = this.model.getChildren();
       this.listenTo(Adapt, 'remove', this.remove);
-      this.listenTo(Adapt, "cover:revealed", this.itemsRevealed);
-      this.listenTo(Adapt, "cover:navigate", this.handleNavigation);
+      this.listenTo(Adapt, 'cover:revealed', this.itemsRevealed);
+      this.listenTo(Adapt, 'cover:navigate', this.handleNavigation);
     },
 
     remove: function() {
@@ -31,26 +31,26 @@ define([
 
     /*handles when item is in view*/
     currentItemInView: function(model) {
-      var $currentItemInView = $(".menu-item-" + model.get("_id"));
+      var $currentItemInView = $('.menu-item-' + model.get('_id'));
 
-      $(".menu-item").removeClass("inview");
-      $currentItemInView.addClass("inview");
+      $('.menu-item').removeClass('inview');
+      $currentItemInView.addClass('inview');
 
       //AA
-      const menuItem = $(".menu-item");
-      $(".menu-item").find(".menu-item-route").attr('tabindex', -1);
+      const menuItem = $('.menu-item');
+      $('.menu-item').find('.menu-item-route').attr('tabindex', -1);
       Adapt.a11y.toggleAccessible(menuItem.filter('.menu-item-title-inner'), false);
       Adapt.a11y.toggleAccessible(menuItem.filter('.menu-item-body-inner'), false);
       Adapt.a11y.toggleAccessible(menuItem.filter('.menu-item-duration-inner'), false);
 
-      $(".menu-item").find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', -1);
+      $('.menu-item').find('.page-level-progress-menu-item-indicator-bar .aria-label').attr('tabindex', -1);
 
-      $currentItemInView.find(".menu-item-route").attr('tabindex', 0);
+      $currentItemInView.find('.menu-item-route').attr('tabindex', 0);
       Adapt.a11y.toggleAccessible($currentItemInView.filter('.menu-item-title-inner'), true);
       Adapt.a11y.toggleAccessible($currentItemInView.filter('.menu-item-body-inner'), true);
       Adapt.a11y.toggleAccessible($currentItemInView.filter('.menu-item-duration-inner'), true);
 
-      $currentItemInView.find(".page-level-progress-menu-item-indicator-bar .aria-label").attr('tabindex', 0);
+      $currentItemInView.find('.page-level-progress-menu-item-indicator-bar .aria-label').attr('tabindex', 0);
     }
 
   });

@@ -6,20 +6,20 @@ define([
 
   var CoverView = MenuView.extend({
 
-    events: {
-      "click .menu-reveal-items": "revealItems",
-      "click .menu-item-control-left": "navigateLeft",
-      "click .menu-item-control-right": "navigateRight",
-      "click .menu-item-intro": "hideItems"
+  events: {
+      'click .menu-reveal-items': 'revealItems',
+      'click .menu-item-control-left': 'navigateLeft',
+      'click .menu-item-control-right': 'navigateRight',
+      'click .menu-item-intro': 'hideItems'
     },
 
     preRender: function() {
       MenuView.prototype.preRender.call(this);
-      this.listenTo(Adapt, "indicator:clicked", this.navigateToCurrentIndex);
+      this.listenTo(Adapt, 'indicator:clicked', this.navigateToCurrentIndex);
     },
 
     postRender: function() {
-      this.listenTo(Adapt, "device:resize", this.setupLayout);
+      this.listenTo(Adapt, 'device:resize', this.setupLayout);
       var nthChild = 0;
       this.model.getChildren().each(_.bind(function(item) {
         if (item.get('_isAvailable')) {
@@ -30,11 +30,11 @@ define([
       this.renderAudio();
       this.setupLayout();
       this.listenTo(Adapt, 'pageView:ready menuView:ready', this.setupLegacyFocus);
-      this.listenTo(Adapt, "menuView:ready", this.setupNavigation);
+      this.listenTo(Adapt, 'menuView:ready', this.setupNavigation);
       this.$el.addClass('cover-menu');
 
-      if (this.model.get("_coverMenuAudio")._introScreen && !this.model.get("_revealedItems")) {
-        this.$(".menu-item-container").velocity({
+      if (this.model.get('_coverMenuAudio')._introScreen && !this.model.get('_revealedItems')) {
+        this.$('.menu-item-container').velocity({
           opacity: 0
         }, 1000);
       }
@@ -66,8 +66,8 @@ define([
         this.model.set('_marginDir', 'right');
       }
 
-      var width = $("#wrapper").width();
-      var height = $(window).height() - $(".navigation").height();
+      var width = $('#wrapper').width();
+      var height = $(window).height() - $('.navigation').height();
       this.model.set({
         width: width
       });
@@ -75,128 +75,128 @@ define([
       var stage = this.model.get('_stage');
       var margin = -(stage * width);
 
-      if (this.model.get("_coverMenuAudio")._introScreen) {
-        this.$(".menu-intro-screen").css({
+      if (this.model.get('_coverMenuAudio')._introScreen) {
+        this.$('.menu-intro-screen').css({
           width: width,
           height: height
         });
       } else {
-        this.$(".menu-intro-screen").addClass('u-display-none');
+        this.$('.menu-intro-screen').addClass('u-display-none');
       }
 
       this.$('.menu-item-container-inner').css({
-        width: width * this.model.getChildren().length + "px",
-        height: (height - $(".menu-item-indicator-container").height()) + "px"
+        width: width * this.model.getChildren().length + 'px',
+        height: (height - $('.menu-item-indicator-container').height()) + 'px'
       });
 
       this.$('.menu-item-container-inner').css(('margin-' + this.model.get('_marginDir')), margin);
 
-      $(".menu").css({
+      $('.menu').css({
         height: height,
-        overflow: "hidden"
+        overflow: 'hidden'
       });
 
-      if (this.model.get("_revealedItems")) {
+      if (this.model.get('_revealedItems')) {
         this.revealItems();
       }
       this.setupNavigation();
     },
 
     setupNavigation: function() {
-      if (!this.model.get("_coverIndex")) {
+      if (!this.model.get('_coverIndex')) {
         this.model.set({
           _coverIndex: 0
         });
-        this.navigateToCurrentIndex(this.model.get("_coverIndex"));
-      } else if (this.model.get("_coverIndex")) {
-        this.navigateToCurrentIndex(this.model.get("_coverIndex"));
+        this.navigateToCurrentIndex(this.model.get('_coverIndex'));
+      } else if (this.model.get('_coverIndex')) {
+        this.navigateToCurrentIndex(this.model.get('_coverIndex'));
       }
     },
 
     navigateToCurrentIndex: function(index) {
-      var movementSize = $("#wrapper").width();
+      var movementSize = $('#wrapper').width();
       var marginDir = {};
       marginDir['margin-' + this.model.get('_marginDir')] = -(movementSize * index);
-      this.$('.menu-item-container-inner').velocity("stop", true).velocity(marginDir);
+      this.$('.menu-item-container-inner').velocity('stop', true).velocity(marginDir);
       this.model.set({
         _coverIndex: index
       });
-      Adapt.trigger("cover:navigate", this.model.get("_coverIndex"));
+      Adapt.trigger('cover:navigate', this.model.get('_coverIndex'));
       this.configureNavigationControls(index);
     },
 
     configureNavigationControls: function(index) {
       if (index == 0) {
-        this.$(".menu-item-control-left").addClass("menu-item-control-hide");
-        this.$(".menu-item-control-right").removeClass("menu-item-control-hide");
+        this.$('.menu-item-control-left').addClass('menu-item-control-hide');
+        this.$('.menu-item-control-right').removeClass('menu-item-control-hide');
       } else if (index == this.model.getChildren().length - 1) {
-        this.$(".menu-item-control-left").removeClass("menu-item-control-hide");
-        this.$(".menu-item-control-right").addClass("menu-item-control-hide");
+        this.$('.menu-item-control-left').removeClass('menu-item-control-hide');
+        this.$('.menu-item-control-right').addClass('menu-item-control-hide');
       } else {
-        this.$(".menu-item-control").removeClass("menu-item-control-hide");
+        this.$('.menu-item-control').removeClass('menu-item-control-hide');
       }
     },
 
     navigateLeft: function(event) {
       if (event) event.preventDefault();
-      var currentIndex = this.model.get("_coverIndex");
+      var currentIndex = this.model.get('_coverIndex');
       currentIndex--;
       this.configureNavigationControls(currentIndex);
       this.model.set({
         _coverIndex: currentIndex
       });
-      this.navigateToCurrentIndex(this.model.get("_coverIndex"));
+      this.navigateToCurrentIndex(this.model.get('_coverIndex'));
     },
 
     navigateRight: function(event) {
       if (event) event.preventDefault();
-      var currentIndex = this.model.get("_coverIndex");
+      var currentIndex = this.model.get('_coverIndex');
       currentIndex++;
       this.configureNavigationControls(currentIndex);
       this.model.set({
         _coverIndex: currentIndex
       });
-      this.navigateToCurrentIndex(this.model.get("_coverIndex"));
+      this.navigateToCurrentIndex(this.model.get('_coverIndex'));
     },
 
     revealItems: function(event) {
       if (event) event.preventDefault();
-      if (this.model.get("_revealedItems")) {
-        this.$(".menu-intro-screen").css({
-          top: "-100%"
+      if (this.model.get('_revealedItems')) {
+        this.$('.menu-intro-screen').css({
+          top: '-100%'
         });
-        this.$(".menu-item-container").css({
+        this.$('.menu-item-container').css({
           opacity: 1
         });
       } else {
-        this.$(".menu-intro-screen").velocity({
-          top: "-100%"
+        this.$('.menu-intro-screen').velocity({
+          top: '-100%'
         }, 1000);
-        this.$(".menu-item-container").velocity({
+        this.$('.menu-item-container').velocity({
           opacity: 1
         }, 1000);
       }
       this.model.set({
         _revealedItems: true
       });
-      Adapt.trigger("cover:revealed");
+      Adapt.trigger('cover:revealed');
     },
 
     hideItems: function(event) {
       if (event) event.preventDefault();
 
-      this.$(".menu-intro-screen").velocity({
-        top: "0"
+      this.$('.menu-intro-screen').velocity({
+        top: '0'
       }, 1000);
 
-      this.$(".menu-item-container").velocity({
+      this.$('.menu-item-container').velocity({
         opacity: 0
       }, 1000);
 
       this.model.set({
         _revealedItems: false
       });
-      Adapt.trigger("cover:hidden");
+      Adapt.trigger('cover:hidden');
     },
 
     coverItemIndicatorClicked: function(index) {
@@ -224,7 +224,7 @@ define([
     },
 
     preRender: function() {
-      this.listenTo(Adapt, "device:resize", this.setupItemLayout);
+      this.listenTo(Adapt, 'device:resize', this.setupItemLayout);
       if (!this.model.get('_isVisited')) {
         this.setVisitedIfBlocksComplete();
       }
@@ -246,22 +246,22 @@ define([
     },
 
     setupItemLayout: function() {
-      var width = $("#wrapper").width();
-      var height = $(window).height() - $(".nav").height();
-      $(".menu-item").css({
-        width: width + "px",
-        height: height + "px"
+      var width = $('#wrapper').width();
+      var height = $(window).height() - $('.nav').height();
+      $('.menu-item').css({
+        width: width + 'px',
+        height: height + 'px'
       });
     },
 
     setBackgroundImage: function() {
       if (this.model.get('_isLocked')) {
-        $(".menu-item-" + this.model.get("_id")).css({
-          backgroundImage: "url(" + this.model.get("_coverMenuAudio")._backgroundGraphic.locked + ")"
+        $('.menu-item-' + this.model.get('_id')).css({
+          backgroundImage: 'url(' + this.model.get('_coverMenuAudio')._backgroundGraphic.locked + ')'
         });
       } else {
-        $(".menu-item-" + this.model.get("_id")).css({
-          backgroundImage: "url(" + this.model.get("_coverMenuAudio")._backgroundGraphic.src + ")"
+        $('.menu-item-' + this.model.get('_id')).css({
+          backgroundImage: 'url(' + this.model.get('_coverMenuAudio')._backgroundGraphic.src + ')'
         });
       }
     },
@@ -284,23 +284,23 @@ define([
       'click .audio-toggle': 'toggleAudio'
     },
 
-    className: "audio-controls",
+    className: 'audio-controls',
 
     postRender: function() {
       this.listenTo(Adapt, {
-        "cover:navigate": this.playItemAudio,
-        "cover:revealed": this.autoplayAudio,
-        "cover:hidden": this.autoplayAudio,
-        "audio:configured": this.autoplayAudio,
-        "audio:updateAudioStatus": this.updateToggle
+        'cover:navigate': this.playItemAudio,
+        'cover:revealed': this.autoplayAudio,
+        'cover:hidden': this.autoplayAudio,
+        'audio:configured': this.autoplayAudio,
+        'audio:updateAudioStatus': this.updateToggle
       });
 
-      this.elementId = this.model.get("_id");
+      this.elementId = this.model.get('_id');
       this.audioModel = this.model.get('_coverMenuAudio')._audio;
       this.audioChannel = this.audioModel._channel;
       this.audioFile = this.audioModel._media.src;
       Adapt.audio.audioClip[this.audioChannel].newID = this.elementId;
-      Adapt.audio.audioClip[this.audioChannel].onscreenID = "";
+      Adapt.audio.audioClip[this.audioChannel].onscreenID = '';
 
       // Autoplay
       if (Adapt.audio.autoPlayGlobal || this.audioModel._autoplay) {
@@ -331,7 +331,7 @@ define([
     toggleAudio: function(event) {
       if (event) event.preventDefault();
 
-      Adapt.audio.audioClip[this.audioChannel].onscreenID = "";
+      Adapt.audio.audioClip[this.audioChannel].onscreenID = '';
       if ($(event.currentTarget).hasClass('playing')) {
         this.pauseAudio();
       } else {
@@ -340,14 +340,14 @@ define([
     },
 
     autoplayAudio: function() {
-      if (this.model.get("_revealedItems")) {
-        this.playItemAudio(this.model.get("_coverIndex"));
+      if (this.model.get('_revealedItems')) {
+        this.playItemAudio(this.model.get('_coverIndex'));
       } else {
-        this.audioChannel = this.model.get("_coverMenuAudio")._audio._channel;
-        this.audioFile = this.model.get("_coverMenuAudio")._audio._media.src;
+        this.audioChannel = this.model.get('_coverMenuAudio')._audio._channel;
+        this.audioFile = this.model.get('_coverMenuAudio')._audio._media.src;
 
         if (this.canAutoplay && Adapt.audio.audioClip[this.audioChannel].status == 1) {
-          Adapt.audio.audioClip[this.audioChannel].onscreenID = "";
+          Adapt.audio.audioClip[this.audioChannel].onscreenID = '';
           Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
         }
       }
@@ -357,7 +357,7 @@ define([
       // iOS requires direct user interaction on a button to enable autoplay
       // Re-use code from main adapt-audio.js playAudio() function
 
-      Adapt.trigger("media:stop");
+      Adapt.trigger('media:stop');
 
       // Stop audio
       Adapt.audio.audioClip[this.audioChannel].pause();
@@ -377,7 +377,7 @@ define([
       Adapt.audio.audioClip[this.audioChannel].src = this.audioFile;
       Adapt.audio.audioClip[this.audioChannel].newID = this.elementId;
 
-      if (Adapt.audio.pauseStopAction == "pause") {
+      if (Adapt.audio.pauseStopAction == 'pause') {
         Adapt.audio.audioClip[this.audioChannel].play(this.pausedTime);
         this.$('.audio-toggle').attr('aria-label', $.a11y_normalize(Adapt.audio.pauseAriaLabel));
       } else {
@@ -391,7 +391,7 @@ define([
     },
 
     pauseAudio: function() {
-      if (Adapt.audio.pauseStopAction == "pause") {
+      if (Adapt.audio.pauseStopAction == 'pause') {
         this.pausedTime = Adapt.audio.audioClip[this.audioChannel].currentTime;
         Adapt.audio.audioClip[this.audioChannel].pause();
         this.$('.audio-toggle').removeClass(Adapt.audio.iconPause);
@@ -416,14 +416,14 @@ define([
     },
 
     currentItemInView: function(model) {
-      if (!this.model.get("_revealedItems")) return;
+      if (!this.model.get('_revealedItems')) return;
 
-      this.audioChannel = model.get("_coverMenuAudio")._audio._channel;
-      this.audioFile = model.get("_coverMenuAudio")._audio._media.src;
+      this.audioChannel = model.get('_coverMenuAudio')._audio._channel;
+      this.audioFile = model.get('_coverMenuAudio')._audio._media.src;
 
       if (model.get('_coverMenuAudio')._audio._isEnabled && model.get('_coverMenuAudio')._audio._autoplay) {
         if (Adapt.audio.audioClip[this.audioChannel].status == 1) {
-          Adapt.audio.audioClip[this.audioChannel].onscreenID = "";
+          Adapt.audio.audioClip[this.audioChannel].onscreenID = '';
           Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
         }
       }
@@ -445,11 +445,11 @@ define([
     },
 
     events: {
-      "click .menu-item-indicator-graphic": "onItemClicked"
+      'click .menu-item-indicator-graphic': 'onItemClicked'
     },
 
     preRender: function() {
-      this.listenTo(Adapt, "cover:navigate", this.handleNavigation);
+      this.listenTo(Adapt, 'cover:navigate', this.handleNavigation);
       if (!this.model.get('_isComplete') && !this.model.get('_isVisited')) {
         this.setVisitedIfBlocksComplete();
       }
@@ -476,33 +476,33 @@ define([
       var width = 100 / numItems;
 
       this.$('.menu-item-indicator-graphic').imageready(_.bind(function() {
-        Adapt.trigger("indicator:postRender");
+        Adapt.trigger('indicator:postRender');
         this.setReadyStatus();
-        Adapt.trigger("device:resize");
+        Adapt.trigger('device:resize');
       }, this));
     },
 
     onItemClicked: function(event) {
       if (event) event.preventDefault();
-      if (this.model.getParent().get("_coverMenuAudio")._introItemGraphic.src) {
-        Adapt.trigger("indicator:clicked", this.$el.index() - 1);
+      if (this.model.getParent().get('_coverMenuAudio')._introItemGraphic.src) {
+        Adapt.trigger('indicator:clicked', this.$el.index() - 1);
       } else {
-        Adapt.trigger("indicator:clicked", this.$el.index());
+        Adapt.trigger('indicator:clicked', this.$el.index());
       }
     },
 
     handleNavigation: function(index) {
-      if (this.model.getParent().get("_coverMenuAudio")._introItemGraphic.src) {
+      if (this.model.getParent().get('_coverMenuAudio')._introItemGraphic.src) {
         if (this.$el.index() == index + 1) {
-          this.$el.addClass("selected");
+          this.$el.addClass('selected');
         } else {
-          this.$el.removeClass("selected");
+          this.$el.removeClass('selected');
         }
       } else {
         if (this.$el.index() == index) {
-          this.$el.addClass("selected");
+          this.$el.addClass('selected');
         } else {
-          this.$el.removeClass("selected");
+          this.$el.removeClass('selected');
         }
       }
     }
