@@ -1,8 +1,9 @@
 define([
   'core/js/adapt',
   'core/js/views/menuView',
+  'core/js/views/menuItemView',
   './adapt-cover-audio-extensions',
-], function(Adapt, MenuView, CoverAudioExtensions) {
+], function(Adapt, MenuView, MenuItemView, CoverAudioExtensions) {
 
   var CoverView = MenuView.extend({
 
@@ -27,7 +28,7 @@ define([
           this.renderMenuItems(item, nthChild);
         }
       }, this));
-      this.renderAudio();
+      //this.renderAudio();
       this.setupLayout();
       this.listenTo(Adapt, 'pageView:ready menuView:ready', this.setupLegacyFocus);
       this.listenTo(Adapt, 'menuView:ready', this.setupNavigation);
@@ -207,10 +208,10 @@ define([
     template: 'cover'
   });
 
-  var CoverItemView = MenuView.extend({
+  var CoverItemView = MenuItemView.extend({
 
     events: {
-      'click button': 'onClickMenuItemButton'
+      'click .js-menu-item-click' : 'onClickMenuItemButton'
     },
 
     className: function() {
@@ -269,12 +270,11 @@ define([
     onClickMenuItemButton: function(event) {
       if (event && event.preventDefault) event.preventDefault();
       if (this.model.get('_isLocked')) return;
-      Backbone.history.navigate('#/id/' + this.model.get('_id'), {
-        trigger: true
-      });
+      Backbone.history.navigate('#/id/' + this.model.get('_id'), {trigger: true});
     }
 
   }, {
+    className: 'menu-item',
     template: 'cover-item'
   });
 
