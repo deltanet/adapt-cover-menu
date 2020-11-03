@@ -48,7 +48,9 @@ define([
         },
 
         renderAudio: function() {
+          if (Adapt.audio && this.model.get("_coverMenuAudio")._audio && this.model.get("_coverMenuAudio")._audio._isEnabled) {
             this.$('.menu-container').prepend(new CoverAudioView({model:this.model}).$el);
+          }
         },
 
         setupLayout: function() {
