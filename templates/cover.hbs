@@ -1,49 +1,36 @@
-{{! make the _globals object in course.json available to this template}}
 {{import_globals}}
-<div class="menu-container" role="region" aria-label="{{_globals._menu._coverMenuAudio.ariaRegion}}">
-	<div class="menu-intro-screen" style="background-image: url({{_coverMenuAudio._backgroundGraphic.src}});">
-		<div class="menu-intro-screen-inner">
-			{{#if displayTitle}}
-			<div class="menu-title" role="heading">
-				<h1 class="menu-title-inner">
-					{{{compile displayTitle this}}}
-				</h1>
-			</div>
-			{{/if}}
-			{{#if body}}
-			<div class="menu-body">
-				<div class="menu-body-inner">
-					{{{compile body this}}}
-				</div>
-			</div>
-			{{/if}}
-			{{#if instruction}}
-			<div class="menu-instruction">
-				<div class="menu-instruction-inner">
-					{{{compile instruction this}}}
-				</div>
-			</div>
-			{{/if}}
-			<button class="btn-text menu-reveal-items">{{{compile _coverMenuAudio.linkStartText this}}}</button>
-		</div>
-	</div>
-	<div class="menu-item-container" role="menu">
-		<div class="menu-item-container-inner u-clearfix">
+
+<div class="menu__inner covermenu__inner">
+
+	<div class="menu__item-container">
+		<div class="menu__item-container-inner js-children" role="list">
 		{{!-- Items rendered here --}}
 		</div>
-		<div class="menu-item-indicator-container">
-			<div class="menu-item-indicator-container-inner u-clearfix">
+
+		<div class="covermenu-item__indicator-container">
+			<div class="covermenu-item__indicator-container-inner">
+
 				{{#if _coverMenuAudio._introItemGraphic.src}}
-				<div class="menu-item-indicator item-intro-indicator" aria-label="">
-					<button class="btn-text base menu-item-indicator-graphic menu-item-intro">
-						<img src="{{_coverMenuAudio._introItemGraphic.src}}"/>
-					</button>
+				<div class="covermenu-item__indicator">
+					<div class="covermenu-item__indicator-inner" role="menuitem">
+						<button class="covermenu-item__indicator-graphic js-covermenu-intro-btn" aria-label="{{_coverMenuAudio._introItemGraphic.alt}}">
+							<img src="{{_coverMenuAudio._introItemGraphic.src}}"/>
+						</button>
+					</div>
 				</div>
 				{{/if}}
+
 				{{!-- Indicators rendered here --}}
 			</div>
 		</div>
-		<button class="btn-text base menu-item-control menu-item-control-left icon-controls-left icon" aria-label="{{_globals._accessibility._ariaLabels.previous}}"></button>
-		<button class="btn-text base menu-item-control menu-item-control-right icon-controls-right icon" aria-label="{{_globals._accessibility._ariaLabels.next}}"></button>
+
+		<button class="btn-icon covermenu__control covermenu__control-left" aria-label="{{_globals._accessibility._ariaLabels.previous}}">
+			<div class="icon icon-controls-left"></div>
+		</button>
+
+		<button class="btn-icon covermenu__control covermenu__control-right" aria-label="{{_globals._accessibility._ariaLabels.next}}">
+			<div class="icon icon-controls-right"></div>
+		</button>
 	</div>
+
 </div>

@@ -1,0 +1,215 @@
+.covermenu-item {
+	background-size: cover;
+	background-position: center;
+	float: left;
+	.dir-rtl & {
+		float: right;
+	}
+	@media all and (max-width: @device-width-small) {
+		overflow: auto;
+		margin: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+	@media all and (max-height:500px) {
+		overflow: auto;
+		margin: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	&__inner {
+		text-align: center;
+		margin: auto;
+		padding: @item-padding;
+		color: #fff;
+		background-color: rgba(0,0,0,0.7) !important;
+
+		@media all and (max-width: @device-width-small) {
+			margin: auto;
+    }
+    //  Only show for desktop and tablet
+  	@media all and (min-width: @device-width-small) {
+	  	position: relative;
+	  	top: 50%;
+	  	left: 50%;
+	  	transform: translate(-50%, -70%);
+	  	-ms-transform: translate(-50%, -70%);
+	  	-webkit-transform: translate(-50%, -70%);
+	  	-moz-transform: translate(-50%, -70%);
+	  	-o-transform: translate(-50%, -70%);
+		}
+	}
+
+	&__title {
+		.menu-item-title;
+		display: block;
+
+		@media all and (min-width: @device-width-medium) {
+			width: 70%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+
+	&__title-inner {
+		color: @menu-item-inverted;
+		background-color: @menu-item;
+		padding: @item-padding;
+		display: block;
+	}
+
+	&__body {
+    .menu-item-body;
+		margin-top: @menu-item-body-margin;
+    margin-bottom: @menu-item-body-margin;
+  }
+
+	&__instruction {
+		.instruction-text;
+		margin-bottom: @menu-item-body-margin;
+	}
+
+	&__assement-details {
+		color: #fff;
+		border: 1px solid white;
+		margin-top: @item-padding;
+	}
+
+	&__assement-details-inner {
+		padding: @item-padding;
+	}
+
+	&__button-container {
+    text-align: center;
+  }
+
+	&__duration {
+		margin-bottom: @menu-item-duration-margin;
+    .menu-item-body;
+    text-align: center;
+	}
+
+	&__progress {
+		margin-bottom: @menu-item-progress-margin;
+	}
+
+	.pagelevelprogress {
+    &__indicator {
+      display: inline-block;
+      width: 6rem;
+    }
+
+    &__indicator-inner {
+      height: @icon-size / 2.5;
+    }
+  }
+
+	&__button {
+    background-color: @menu-item-btn-color;
+    color: @menu-item-btn-color-inverted;
+
+    .no-touch &:not(.is-disabled):not(.is-locked):hover {
+      background-color: @menu-item-btn-color-hover;
+      color: @menu-item-btn-color-inverted-hover;
+      .transition(background-color @duration ease-in, color @duration ease-in;);
+    }
+  }
+
+  &__button.is-locked,
+  &__button.is-disabled {
+    background-color: @disabled;
+    color: @disabled-inverted;
+  }
+
+  &__button.is-visited {
+    background-color: @visited;
+    color: @visited-inverted;
+  }
+
+	// Menu Item Indicator Container
+	// =============================
+	&__indicator-container {
+		position: fixed;
+		bottom: 0px;
+		left: 0;
+		background-color: black;
+		background-color: rgba(0,0,0,0.95);
+		right: 0px;
+		text-align: center;
+		@media all and (max-width:@device-width-small) {
+			bottom: 0;
+			left: 0;
+			background-color: black;
+			margin: auto;
+		}
+	}
+
+	&__indicator-container-inner {
+		display: inline-block;
+		margin: auto;
+	}
+
+	// Menu Item Indicator
+	// ===================
+	&__indicator {
+		float: left;
+		.dir-rtl & {
+			float: right;
+		}
+		&.selected {
+			.covermenu-item__indicator-graphic {
+				opacity: 1;
+			}
+		}
+	}
+
+	&__indicator-graphic {
+		position: relative;
+		display: block;
+		background-color: transparent;
+		text-align: center;
+		text-decoration: none;
+		opacity: 0.3;
+		transition: opacity 0.4s;
+		.no-touch &:hover {
+			opacity: 1;
+		}
+		&:focus {
+			opacity: 1;
+		}
+		img {
+			display: block;
+			max-height: 80px;
+
+			@media all and (max-width:@device-width-small) {
+				max-height: 50px;
+			}
+		}
+	}
+
+	// Letterbox sized viewports
+	// =========================
+	@media (max-height: 440px) and (max-width: @device-width-large) {
+
+		&__indicator-graphic {
+			img {
+				display: block;
+				max-height: 50px;
+			}
+			span {
+				display: none;
+			}
+		}
+
+		&__indicator-container {
+			bottom: 0;
+			left: 0;
+			margin-left: 0 !important;
+			background-color: black;
+		}
+
+		.menu-item__button {
+			margin-bottom: 80px;
+		}
+
+	}
+}

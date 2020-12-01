@@ -1,42 +1,66 @@
-{{! make the _globals object in course.json available to this template}}
 {{import_globals}}
-<div class="menu-item-inner" role="menuitem">
+
+<div class="menu-item__inner covermenu-item__inner">
+
+	{{#if _coverMenuAudio._audio._isEnabled}}
+	<div class="audio">
+		<div class="audio__inner">
+			<button class="btn-icon audio__controls js-audio-toggle" id="{{_id}}" aria-label="">
+				<div class="audio__controls-icon"></div>
+			</button>
+		</div>
+	</div>
+	{{/if}}
+
 	{{#if displayTitle}}
-	<div class="menu-item-title" role="heading">
-		<div class="menu-item-title-inner">
-			{{{compile displayTitle this}}}
+	<div class="menu-item__title covermenu-item__title">
+		<div class="js-heading" data-a11y-heading-type="menuItem"></div>
+
+		<div class="menu-item__title-inner covermenu-item__title-inner">
+			{{{compile displayTitle}}}
 		</div>
 	</div>
 	{{/if}}
+
 	{{#if body}}
-	<div class="menu-item-body">
-		<div class="menu-item-body-inner">
-			{{{compile body this}}}
+	<div class="menu-item__body covermenu-item__body">
+		<div class="menu-item__body-inner covermenu-item__body-inner">
+			{{{compile body}}}
 		</div>
 	</div>
 	{{/if}}
+
 	{{#if instruction}}
-	<div class="menu-item-instruction">
-		<div class="menu-item-instruction-inner">
-			{{{compile instruction this}}}
+	<div class="menu-item__instruction covermenu-item__instruction">
+		<div class="menu-item__instruction-inner covermenu-item__instruction-inner">
+			{{{compile instruction}}}
 		</div>
 	</div>
 	{{/if}}
+
 	{{#if duration}}
-	<div class="menu-item-duration">
-		<div class="menu-item-duration-inner">{{{compile _coverMenuAudio.durationLabel this}}} {{{compile duration this}}}</div>
+	<div class="menu-item__duration covermenu-item__duration">
+		<div class="menu-item__duration-inner covermenu-item__duration-inner">
+			{{{_coverMenuAudio.durationLabel}}} {{{duration}}}</div>
 	</div>
 	{{/if}}
-	<button aria-label="{{#if _isVisited}}{{_coverMenuAudio._ariaLabels.menuVisitedText}}{{else}}{{#if _isLocked}}{{_coverMenuAudio._ariaLabels.menuLockedText}}{{else}}{{linkText}}{{/if}}{{/if}}" class="btn-text menu-item-route js-menu-item-click {{#if _isVisited}}is-visited{{/if}} {{#if _isLocked}}is-disabled{{/if}}">
-  {{#if _isLocked}}
-  {{{_coverMenuAudio.linkLockedText}}}
-    {{else}}
-		{{#if _isVisited}}
-		{{{_coverMenuAudio.linkVisitedText}}}
-		{{else}}
-		{{{linkText}}}
-		{{/if}}
-	{{/if}}
-  </button>
-	<div class="menu-item-spacer"></div>
+
+	<div class="menu-item__progress covermenu-item__progress js-menu-item-progress">
+		{{!-- Menu item progress bar will render in here --}}
+  </div>
+
+	<div class="menu-item__button-container covermenu-item__button-container">
+		<button class="btn-text menu-item__button covermenu-item__button js-menu-item-click{{#if _isVisited}} is-visited{{/if}}{{#if _isLocked}} is-locked{{/if}}" aria-label="{{#if _isVisited}}{{_coverMenuAudio._ariaLabels.menuVisitedText}}{{else}}{{#if _isLocked}}{{_coverMenuAudio._ariaLabels.menuLockedText}}{{else}}{{linkText}}{{/if}}{{/if}}"{{#if _isLocked}} disabled="disabled"{{/if}}>
+		  {{#if _isLocked}}
+		  {{{_coverMenuAudio.linkLockedText}}}
+		    {{else}}
+				{{#if _isVisited}}
+				{{{_coverMenuAudio.linkVisitedText}}}
+				{{else}}
+				{{{linkText}}}
+				{{/if}}
+			{{/if}}
+		</button>
+	</div>
+
 </div>
