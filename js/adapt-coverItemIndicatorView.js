@@ -1,10 +1,9 @@
 define([
   'core/js/adapt',
-  'core/js/views/menuView',
   'core/js/views/menuItemView'
-], function(Adapt, MenuView, MenuItemView) {
+], function(Adapt, MenuItemView) {
 
-  var CoverItemIndicatorView = MenuView.extend({
+  var CoverItemIndicatorView = MenuItemView.extend({
 
     events: {
       'click .covermenu-item__indicator-graphic': 'onItemClicked'
@@ -60,15 +59,15 @@ define([
     handleNavigation: function(index) {
       if (this.model.getParent().get('_coverMenuAudio')._introItemGraphic.src) {
         if (this.$el.index() == index + 1) {
-          this.$el.addClass('selected');
+          this.$el.addClass('is-selected');
         } else {
-          this.$el.removeClass('selected');
+          this.$el.removeClass('is-selected');
         }
       } else {
         if (this.$el.index() == index) {
-          this.$el.addClass('selected');
+          this.$el.addClass('is-selected');
         } else {
-          this.$el.removeClass('selected');
+          this.$el.removeClass('is-selected');
         }
       }
     }

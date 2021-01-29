@@ -73,8 +73,8 @@ define([
         this.model.set('_marginDir', 'right');
       }
 
-      var width = $('#wrapper').width();
-      var height = $(window).height() - $('.navigation').height();
+      var width = this.$('.menu__item-container').width();
+      var height = $(window).height() - $('.nav').height();
       this.model.set({
         width: width
       });
@@ -109,7 +109,7 @@ define([
     },
 
     navigateToCurrentIndex: function(index) {
-      var movementSize = $('#wrapper').width();
+      var movementSize = this.$('.menu__item-container').width();
       var marginDir = {};
       marginDir['margin-' + this.model.get('_marginDir')] = -(movementSize * index);
       this.$('.menu__item-container-inner').velocity('stop', true).velocity(marginDir);

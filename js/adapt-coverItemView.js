@@ -78,7 +78,7 @@ define([
     },
 
     setupItemLayout: function() {
-      var width = $('#wrapper').width();
+      var width = $('.menu__item-container').width();
       var height = $(window).height() - $('.nav').height();
       $(this.el).css({
         width: width + 'px',
