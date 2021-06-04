@@ -15,10 +15,19 @@ define([
       this.listenTo(Adapt, {
         'remove': this.remove,
         'popup:opened notify:opened': this.popupOpened,
-        'audio:configured': this.audioConfigured,
-        'audio:updateAudioStatus': this.updateToggle,
         'cover:hidden': this.hideItems,
         'device:resize': this.updateLayout
+      });
+
+      if (Adapt.audio && this.model.get("_coverMenuAudio")._audio && this.model.get("_coverMenuAudio")._audio._isEnabled) {
+        this.setupAudio();
+      }
+    },
+
+    setupAudio: function() {
+      this.listenTo(Adapt, {
+        'audio:configured': this.audioConfigured,
+        'audio:updateAudioStatus': this.updateToggle
       });
 
       this.elementId = this.model.get('_id');
@@ -75,7 +84,7 @@ define([
 
     autoplayAudio: function () {
       // Check if audio is set to on
-      if (Adapt.audio.audioClip[this.audioChannel].status == 1 && this.canAutoplay) {
+      if (Adapt.audio && this.model.get("_coverMenuAudio")._audio && this.model.get("_coverMenuAudio")._audio._isEnabled && Adapt.audio.audioClip[this.audioChannel].status == 1 && this.canAutoplay) {
         Adapt.trigger('audio:playAudio', this.audioFile, this.elementId, this.audioChannel);
       }
     },
@@ -140,7 +149,7 @@ define([
 
     setupLayout: function() {
       var width = $('#wrapper').width();
-      var height = $(window).height() - $('.navigation').height();
+      var height = $(window).height() - $('.nav').height();
 
       this.$('.covermenu__intro').css({
         width: width,
@@ -154,7 +163,7 @@ define([
 
     updateLayout: function() {
       var width = $('#wrapper').width();
-      var height = $(window).height() - $('.navigation').height();
+      var height = $(window).height() - $('.nav').height();
 
       this.$('.covermenu__intro').css({
         width: width,

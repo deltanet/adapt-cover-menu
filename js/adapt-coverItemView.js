@@ -26,7 +26,16 @@ define([
       this.setBackgroundImage();
 
       this.listenTo(Adapt, {
-        'popup:opened notify:opened': this.popupOpened,
+        'popup:opened notify:opened': this.popupOpened
+      });
+
+      if (Adapt.audio && this.model.get("_coverMenuAudio")._audio && this.model.get("_coverMenuAudio")._audio._isEnabled) {
+        this.setupAudio();
+      }
+    },
+
+    setupAudio: function() {
+      this.listenTo(Adapt, {
         'audio:configured': this.audioConfigured,
         'audio:updateAudioStatus': this.updateToggle
       });
